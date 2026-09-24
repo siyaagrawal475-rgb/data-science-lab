@@ -52,10 +52,20 @@ export const FlashcardDeck: React.FC<FlashcardDeckProps> = ({
     }
   };
 
+  const handleDeckKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'ArrowRight') {
+      e.preventDefault();
+      handleNext();
+    } else if (e.key === 'ArrowLeft') {
+      e.preventDefault();
+      handlePrev();
+    }
+  };
+
   if (!currentCard) return null;
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4" onKeyDown={handleDeckKeyDown}>
       {/* Deck Controls Header */}
       <div className="flex items-center justify-between text-xs text-[#64748B] dark:text-[#B8C4D1]">
         <div className="flex items-center gap-2">

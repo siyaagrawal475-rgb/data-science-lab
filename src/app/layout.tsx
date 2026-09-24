@@ -5,9 +5,34 @@ import { Footer } from '@/components/layout/Footer';
 import { ThemeProvider } from '@/context/ThemeContext';
 
 export const metadata: Metadata = {
-  title: 'Data Science Lab - Modern Educational Platform',
+  title: {
+    default: 'Data Science Lab - 6-Unit Interactive Curriculum & Labs',
+    template: '%s | Data Science Lab',
+  },
   description:
-    'An interactive educational platform for learning Exploratory Data Analysis, Linear Algebra, Probability, Regression, and Machine Learning.',
+    'Interactive educational platform featuring 6 units, 60 lessons, 24 computational labs, and 86 mathematical formulas across Exploratory Data Analysis, Linear Algebra, Probability, Regression, and Machine Learning.',
+  keywords: [
+    'Data Science',
+    'Linear Algebra',
+    'Probability Theory',
+    'Exploratory Data Analysis',
+    'Regression Analysis',
+    'Machine Learning',
+    'Interactive Labs',
+    'KaTeX Math',
+  ],
+  authors: [{ name: 'Data Science Lab Team' }],
+  robots: {
+    index: true,
+    follow: true,
+  },
+  openGraph: {
+    title: 'Data Science Lab - Modern Interactive Educational Platform',
+    description:
+      'Master data science through 6 structured units, 60 interactive lessons, and 24 hands-on computational labs.',
+    type: 'website',
+    siteName: 'Data Science Lab',
+  },
 };
 
 export default function RootLayout({

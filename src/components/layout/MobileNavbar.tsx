@@ -3,7 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { UNITS_DATA } from '@/lib/constants';
-import { LogIn, ArrowRight } from 'lucide-react';
+import { LogIn, ArrowRight, Search } from 'lucide-react';
 import { Button } from '@/components/ui/Button';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { cn } from '@/lib/utils';
@@ -11,6 +11,7 @@ import { cn } from '@/lib/utils';
 interface MobileNavbarProps {
   isOpen: boolean;
   onClose: () => void;
+  onOpenSearch?: () => void;
   navLinks: { href: string; label: string; icon: React.ReactNode }[];
   currentPath: string;
 }
@@ -18,6 +19,7 @@ interface MobileNavbarProps {
 export const MobileNavbar: React.FC<MobileNavbarProps> = ({
   isOpen,
   onClose,
+  onOpenSearch,
   navLinks,
   currentPath,
 }) => {
@@ -31,6 +33,22 @@ export const MobileNavbar: React.FC<MobileNavbarProps> = ({
       {/* Drawer */}
       <div className="fixed top-16 bottom-0 right-0 w-full max-w-xs bg-white dark:bg-[#151F2B] border-l border-[#E2E8F0] dark:border-[#2E3B4A] shadow-xl flex flex-col justify-between overflow-y-auto">
         <div className="p-4 space-y-6">
+          {/* Quick Search Button */}
+          {onOpenSearch && (
+            <button
+              onClick={onOpenSearch}
+              className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl border border-[#E2E8F0] dark:border-[#2E3B4A] bg-[#F8FAFC] dark:bg-[#101923] text-xs font-medium text-[#64748B] dark:text-[#CBD5E1] hover:border-[#CBD5E1] dark:hover:border-[#3D4F63] transition-colors"
+            >
+              <div className="flex items-center gap-2">
+                <Search className="w-4 h-4 text-[#94A3B8] dark:text-[#91B9E8]" />
+                <span>Search curriculum...</span>
+              </div>
+              <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-white dark:bg-[#202D3B] border border-[#E2E8F0] dark:border-[#2E3B4A] text-[#94A3B8] dark:text-[#CBD5E1]">
+                ⌘K
+              </span>
+            </button>
+          )}
+
           {/* Main Navigation Links */}
           <div className="space-y-1">
             <div className="px-3 py-1 text-[11px] font-bold text-[#94A3B8] dark:text-[#7F8B99] uppercase tracking-wider">
@@ -73,7 +91,7 @@ export const MobileNavbar: React.FC<MobileNavbarProps> = ({
             {UNITS_DATA.map((unit) => (
               <Link
                 key={unit.id}
-                href={`/units/${unit.id}`}
+                href={`/units/${unit.unitNumber}`}
                 onClick={onClose}
                 className="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium text-[#334155] dark:text-[#B8C4D1] hover:bg-[#F8FAFC] dark:hover:bg-[#1B2735] transition-colors"
               >
@@ -87,7 +105,7 @@ export const MobileNavbar: React.FC<MobileNavbarProps> = ({
                   </span>
                 </div>
                 <span className="text-[10px] font-semibold text-[#94A3B8] dark:text-[#7F8B99] bg-[#F1F5F9] dark:bg-[#202D3B] px-1.5 py-0.5 rounded">
-                  {unit.progressPercent}%
+                  Unit {unit.unitNumber}
                 </span>
               </Link>
             ))}

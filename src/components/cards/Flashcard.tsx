@@ -22,11 +22,22 @@ export const Flashcard: React.FC<FlashcardProps> = ({ card, className }) => {
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === ' ' || e.key === 'Enter') {
+      e.preventDefault();
+      setIsFlipped(!isFlipped);
+    }
+  };
+
   return (
     <div
       onClick={() => setIsFlipped(!isFlipped)}
+      onKeyDown={handleKeyDown}
+      role="button"
+      tabIndex={0}
+      aria-label={`Flashcard: ${card.front}. Click or press space to reveal answer.`}
       className={cn(
-        'group cursor-pointer select-none min-h-[220px] p-6 bg-white dark:bg-[#151F2B] rounded-xl border border-[#E2E8F0] dark:border-[#2E3B4A] shadow-xs hover:border-[#CBD5E1] dark:hover:border-[#3D4F63] hover:shadow-sm transition-all duration-200 flex flex-col justify-between relative',
+        'group cursor-pointer select-none min-h-[220px] p-6 bg-white dark:bg-[#151F2B] rounded-xl border border-[#E2E8F0] dark:border-[#2E3B4A] shadow-xs hover:border-[#CBD5E1] dark:hover:border-[#3D4F63] hover:shadow-sm transition-all duration-200 flex flex-col justify-between relative focus-visible:outline-2 focus-visible:outline-[#91B9E8]',
         isFlipped ? 'bg-gradient-to-b from-[#F8FAFC] to-white dark:from-[#182332] dark:to-[#151F2B] border-[#B9D1EE] dark:border-[#3B526B]' : '',
         className
       )}

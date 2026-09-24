@@ -13,10 +13,12 @@ import {
   Menu,
   X,
   ChevronDown,
+  Search,
 } from 'lucide-react';
 import { UNITS_DATA } from '@/lib/constants';
 import { Button } from '@/components/ui/Button';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
+import { GlobalSearchModal } from '@/components/search/GlobalSearchModal';
 import { cn } from '@/lib/utils';
 import { MobileNavbar } from './MobileNavbar';
 
@@ -24,6 +26,19 @@ export const Navbar: React.FC = () => {
   const pathname = usePathname();
   const [isUnitsOpen, setIsUnitsOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  // Global hotkey Ctrl+K / Cmd+K listener
+  React.useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        setIsSearchOpen((prev) => !prev);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const navLinks = [
     { href: '/', label: 'Curriculum', icon: <BookOpen className="w-4 h-4" /> },
@@ -79,7 +94,9 @@ export const Navbar: React.FC = () => {
                   <button
                     onClick={() => setIsUnitsOpen(!isUnitsOpen)}
                     onBlur={() => setTimeout(() => setIsUnitsOpen(false), 200)}
-                    className="flex items-center gap-1.5 px-3 py-2 rounded-md text-xs sm:text-sm font-medium text-[#64748B] dark:text-[#B8C4D1] hover:text-[#172033] dark:hover:text-[#F1F5F9] hover:bg-[#F8FAFC] dark:hover:bg-[#1B2735] transition-colors"
+                    aria-expanded={isUnitsOpen}
+                    aria-haspopup="true"
+                    className="flex items-center gap-1.5 px-3 py-2 rounded-md text-xs sm:text-sm font-medium text-[#64748B] dark:text-[#B8C4D1] hover:text-[#172033] dark:hover:text-[#F1F5F9] hover:bg-[#F8FAFC] dark:hover:bg-[#1B2735] transition-colors cursor-pointer"
                   >
                     <span>Units</span>
                     <ChevronDown className={cn('w-3.5 h-3.5 transition-transform', isUnitsOpen && 'rotate-180')} />
@@ -94,7 +111,7 @@ export const Navbar: React.FC = () => {
                         {UNITS_DATA.map((unit) => (
                           <Link
                             key={unit.id}
-                            href={`/units/${unit.id}`}
+                            href={`/units/${unit.unitNumber}`}
                             className="flex items-center gap-2.5 px-3 py-2 text-xs text-[#334155] dark:text-[#B8C4D1] hover:bg-[#F8FAFC] dark:hover:bg-[#1B2735] hover:text-[#172033] dark:hover:text-[#F1F5F9] transition-colors"
                           >
                             <span
@@ -112,9 +129,22 @@ export const Navbar: React.FC = () => {
               </nav>
             </div>
 
-            {/* Right: Actions & Theme Toggle */}
-            <div className="hidden sm:flex items-center gap-3">
+            {/* Right: Search, Actions & Theme Toggle */}
+            <div className="hidden sm:flex items-center gap-2.5">
+              <button
+                onClick={() => setIsSearchOpen(true)}
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[#E2E8F0] dark:border-[#2E3B4A] bg-[#F8FAFC] dark:bg-[#101923] text-xs text-[#64748B] dark:text-[#CBD5E1] hover:border-[#CBD5E1] dark:hover:border-[#3D4F63] hover:text-[#0F172A] dark:hover:text-white transition-all cursor-pointer shadow-2xs"
+                title="Search topics, lessons, labs (Ctrl+K)"
+              >
+                <Search className="w-3.5 h-3.5 text-[#94A3B8] dark:text-[#91B9E8]" />
+                <span>Search...</span>
+                <kbd className="hidden lg:inline-flex text-[10px] font-mono px-1.5 py-0.5 rounded bg-white dark:bg-[#202D3B] border border-[#E2E8F0] dark:border-[#2E3B4A] text-[#94A3B8] dark:text-[#CBD5E1]">
+                  ⌘K
+                </kbd>
+              </button>
+
               <ThemeToggle />
+
               <Link href="/login">
                 <Button
                   variant="outline"
@@ -126,18 +156,25 @@ export const Navbar: React.FC = () => {
               </Link>
               <Link href="/dashboard">
                 <Button variant="primary" size="sm">
-                  Go to Dashboard
+                  Dashboard
                 </Button>
               </Link>
             </div>
 
-            {/* Mobile Hamburger & Theme Toggle Button */}
-            <div className="flex md:hidden items-center gap-2">
+            {/* Mobile Actions Button */}
+            <div className="flex md:hidden items-center gap-1.5">
+              <button
+                onClick={() => setIsSearchOpen(true)}
+                aria-label="Open search"
+                className="p-2 rounded-lg text-[#64748B] dark:text-[#CBD5E1] hover:text-[#172033] dark:hover:text-[#F1F5F9] hover:bg-[#F1F5F9] dark:hover:bg-[#202D3B] transition-colors"
+              >
+                <Search className="w-5 h-5" />
+              </button>
               <ThemeToggle compact />
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 aria-label="Toggle navigation menu"
-                className="p-2 rounded-lg text-[#64748B] dark:text-[#B8C4D1] hover:text-[#172033] dark:hover:text-[#F1F5F9] hover:bg-[#F1F5F9] dark:hover:bg-[#202D3B] transition-colors"
+                className="p-2 rounded-lg text-[#64748B] dark:text-[#CBD5E1] hover:text-[#172033] dark:hover:text-[#F1F5F9] hover:bg-[#F1F5F9] dark:hover:bg-[#202D3B] transition-colors"
               >
                 {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
@@ -146,10 +183,20 @@ export const Navbar: React.FC = () => {
         </div>
       </header>
 
+      {/* Global Search Dialog */}
+      <GlobalSearchModal
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+      />
+
       {/* Mobile Drawer Navigation */}
       <MobileNavbar
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
+        onOpenSearch={() => {
+          setIsMobileMenuOpen(false);
+          setIsSearchOpen(true);
+        }}
         navLinks={navLinks}
         currentPath={pathname}
       />
