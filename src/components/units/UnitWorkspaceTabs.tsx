@@ -115,8 +115,8 @@ export const UnitWorkspaceTabs: React.FC<UnitWorkspaceTabsProps> = ({
       />
 
       {/* Navigation Tab Bar */}
-      <div className="border-b border-[#E2E8F0] dark:border-[#334155] bg-white dark:bg-[#111827] rounded-2xl p-1.5 shadow-xs overflow-x-auto">
-        <div className="flex items-center gap-1 min-w-max">
+      <div className="border border-[#E2E8F0] dark:border-[#334155] bg-white dark:bg-[#111827] rounded-2xl p-2 shadow-xs overflow-x-auto">
+        <div className="flex items-center gap-1.5 min-w-max">
           {tabList.map((tab) => {
             const Icon = tab.icon;
             const isActive = activeTab === tab.id;
@@ -124,13 +124,25 @@ export const UnitWorkspaceTabs: React.FC<UnitWorkspaceTabsProps> = ({
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap ${
+                style={
                   isActive
-                    ? 'bg-[#172033] dark:bg-[#1E293B] text-white shadow-xs'
-                    : 'text-[#64748B] dark:text-[#94A3B8] hover:text-[#0F172A] dark:hover:text-white hover:bg-[#F8FAFC] dark:hover:bg-[#172033]'
+                    ? {
+                        backgroundColor: unit.colorTokens.soft,
+                        color: unit.colorTokens.text,
+                        borderColor: unit.colorTokens.border,
+                      }
+                    : undefined
+                }
+                className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all cursor-pointer whitespace-nowrap border ${
+                  isActive
+                    ? 'shadow-xs scale-[1.02]'
+                    : 'border-transparent text-[#64748B] dark:text-[#94A3B8] hover:text-[#0F172A] dark:hover:text-white hover:bg-[#F8FAFC] dark:hover:bg-[#172033]'
                 }`}
               >
-                <Icon className="w-3.5 h-3.5" />
+                <Icon
+                  className="w-3.5 h-3.5"
+                  style={isActive ? { color: unit.colorTokens.primary } : undefined}
+                />
                 <span>{tab.label}</span>
               </button>
             );

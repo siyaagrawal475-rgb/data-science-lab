@@ -52,8 +52,8 @@ export const UnitHeader: React.FC<UnitHeaderProps> = ({
       <div className="p-6 sm:p-8 bg-white dark:bg-[#151F2B] rounded-2xl border border-[#E2E8F0] dark:border-[#2E3B4A] shadow-xs space-y-6 relative overflow-hidden">
         {/* Subtle decorative background tint */}
         <div 
-          className="absolute -right-20 -top-20 w-80 h-80 rounded-full blur-3xl pointer-events-none opacity-20 dark:opacity-10"
-          style={{ backgroundColor: 'var(--unit-1-primary, #F4A58A)' }}
+          className="absolute -right-20 -top-20 w-80 h-80 rounded-full blur-3xl pointer-events-none opacity-25 dark:opacity-15"
+          style={{ backgroundColor: `var(--unit-${unitNumber}-primary)` }}
         />
 
         <div className="flex flex-col md:flex-row md:items-start justify-between gap-6 relative z-10">
