@@ -1,0 +1,146 @@
+@import "tailwindcss";
+@import "katex/dist/katex.min.css";
+
+:root {
+  --background: #F8FAFC;
+  --surface: #FFFFFF;
+  --surface-elevated: #FFFFFF;
+  --surface-secondary: #F1F5F9;
+  --text-primary: #172033;
+  --text-secondary: #64748B;
+  --text-muted: #94A3B8;
+  --border-subtle: #E2E8F0;
+  --border-strong: #CBD5E1;
+
+  /* Unit 1: Foundations & EDA */
+  --unit-1-primary: #F4A58A;
+  --unit-1-soft: #FCE5DC;
+  --unit-1-border: #EFC0B0;
+  --unit-1-text: #9E513B;
+
+  /* Unit 2: Linear Algebra & Vectors */
+  --unit-2-primary: #91B9E8;
+  --unit-2-soft: #E5EFFB;
+  --unit-2-border: #B9D1EE;
+  --unit-2-text: #416B9E;
+
+  /* Unit 3: Matrices & Determinants */
+  --unit-3-primary: #8FC7A3;
+  --unit-3-soft: #E5F3E9;
+  --unit-3-border: #B8DCC3;
+  --unit-3-text: #3F7951;
+
+  /* Unit 4: Probability & Statistics */
+  --unit-4-primary: #B7A3E3;
+  --unit-4-soft: #EEE9F8;
+  --unit-4-border: #CFC2EA;
+  --unit-4-text: #68539A;
+
+  /* Unit 5: Regression Analysis */
+  --unit-5-primary: #E8C878;
+  --unit-5-soft: #FAF2D8;
+  --unit-5-border: #EBD99A;
+  --unit-5-text: #806A28;
+
+  /* Unit 6: Classification & ML */
+  --unit-6-primary: #D99AAF;
+  --unit-6-soft: #F6E5EB;
+  --unit-6-border: #E5BBC9;
+  --unit-6-text: #8A4E63;
+}
+
+html.dark {
+  --background: #0F1720;
+  --surface: #151F2B;
+  --surface-elevated: #1B2735;
+  --surface-secondary: #202D3B;
+  --text-primary: #F1F5F9;
+  --text-secondary: #B8C4D1;
+  --text-muted: #7F8B99;
+  --border-subtle: #2E3B4A;
+  --border-strong: #3D4F63;
+
+  /* Unit 1: Foundations & EDA (Dark Calibrated) */
+  --unit-1-primary: #F4A58A;
+  --unit-1-soft: rgba(244, 165, 138, 0.15);
+  --unit-1-border: rgba(239, 192, 176, 0.35);
+  --unit-1-text: #FFBEA8;
+
+  /* Unit 2: Linear Algebra & Vectors (Dark Calibrated) */
+  --unit-2-primary: #91B9E8;
+  --unit-2-soft: rgba(145, 185, 232, 0.15);
+  --unit-2-border: rgba(185, 209, 238, 0.35);
+  --unit-2-text: #BBD6F6;
+
+  /* Unit 3: Matrices & Determinants (Dark Calibrated) */
+  --unit-3-primary: #8FC7A3;
+  --unit-3-soft: rgba(143, 199, 163, 0.15);
+  --unit-3-border: rgba(184, 220, 195, 0.35);
+  --unit-3-text: #AEE2C0;
+
+  /* Unit 4: Probability & Statistics (Dark Calibrated) */
+  --unit-4-primary: #B7A3E3;
+  --unit-4-soft: rgba(183, 163, 227, 0.15);
+  --unit-4-border: rgba(207, 194, 234, 0.35);
+  --unit-4-text: #D5C7F4;
+
+  /* Unit 5: Regression Analysis (Dark Calibrated) */
+  --unit-5-primary: #E8C878;
+  --unit-5-soft: rgba(232, 200, 120, 0.15);
+  --unit-5-border: rgba(235, 217, 154, 0.35);
+  --unit-5-text: #F6DF99;
+
+  /* Unit 6: Classification & ML (Dark Calibrated) */
+  --unit-6-primary: #D99AAF;
+  --unit-6-soft: rgba(217, 154, 175, 0.15);
+  --unit-6-border: rgba(229, 187, 201, 0.35);
+  --unit-6-text: #F3BFD0;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+/* Accessible focus outlines */
+:focus-visible {
+  outline: 2px solid var(--unit-2-primary);
+  outline-offset: 2px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--surface-secondary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-muted);
+}
+
+/* KaTeX Dark Mode Compatibility */
+html.dark .katex {
+  color: #F1F5F9;
+}
+
+/* Micro-interaction animation utilities */
+@media (prefers-reduced-motion: no-preference) {
+  .hover-lift {
+    transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+  }
+  .hover-lift:hover {
+    transform: translateY(-2px);
+  }
+}
