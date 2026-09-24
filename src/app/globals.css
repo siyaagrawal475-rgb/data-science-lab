@@ -6,9 +6,9 @@
   --surface: #FFFFFF;
   --surface-elevated: #FFFFFF;
   --surface-secondary: #F1F5F9;
-  --text-primary: #172033;
-  --text-secondary: #64748B;
-  --text-muted: #94A3B8;
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+  --text-muted: #64748B;
   --border-subtle: #E2E8F0;
   --border-strong: #CBD5E1;
 
@@ -50,51 +50,51 @@
 }
 
 html.dark {
-  --background: #0F1720;
-  --surface: #151F2B;
-  --surface-elevated: #1B2735;
-  --surface-secondary: #202D3B;
-  --text-primary: #F1F5F9;
-  --text-secondary: #B8C4D1;
-  --text-muted: #7F8B99;
-  --border-subtle: #2E3B4A;
-  --border-strong: #3D4F63;
+  --background: #0B1120;
+  --surface: #111827;
+  --surface-elevated: #172033;
+  --surface-secondary: #1E293B;
+  --text-primary: #F8FAFC;
+  --text-secondary: #CBD5E1;
+  --text-muted: #94A3B8;
+  --border-subtle: #334155;
+  --border-strong: #475569;
 
   /* Unit 1: Foundations & EDA (Dark Calibrated) */
   --unit-1-primary: #F4A58A;
-  --unit-1-soft: rgba(244, 165, 138, 0.15);
-  --unit-1-border: rgba(239, 192, 176, 0.35);
-  --unit-1-text: #FFBEA8;
+  --unit-1-soft: rgba(244, 165, 138, 0.20);
+  --unit-1-border: rgba(239, 192, 176, 0.40);
+  --unit-1-text: #FFC4B3;
 
   /* Unit 2: Linear Algebra & Vectors (Dark Calibrated) */
   --unit-2-primary: #91B9E8;
-  --unit-2-soft: rgba(145, 185, 232, 0.15);
-  --unit-2-border: rgba(185, 209, 238, 0.35);
-  --unit-2-text: #BBD6F6;
+  --unit-2-soft: rgba(145, 185, 232, 0.20);
+  --unit-2-border: rgba(185, 209, 238, 0.40);
+  --unit-2-text: #C6DEFA;
 
   /* Unit 3: Matrices & Determinants (Dark Calibrated) */
   --unit-3-primary: #8FC7A3;
-  --unit-3-soft: rgba(143, 199, 163, 0.15);
-  --unit-3-border: rgba(184, 220, 195, 0.35);
-  --unit-3-text: #AEE2C0;
+  --unit-3-soft: rgba(143, 199, 163, 0.20);
+  --unit-3-border: rgba(184, 220, 195, 0.40);
+  --unit-3-text: #BCE8CC;
 
   /* Unit 4: Probability & Statistics (Dark Calibrated) */
   --unit-4-primary: #B7A3E3;
-  --unit-4-soft: rgba(183, 163, 227, 0.15);
-  --unit-4-border: rgba(207, 194, 234, 0.35);
-  --unit-4-text: #D5C7F4;
+  --unit-4-soft: rgba(183, 163, 227, 0.20);
+  --unit-4-border: rgba(207, 194, 234, 0.40);
+  --unit-4-text: #DFD3F8;
 
   /* Unit 5: Regression Analysis (Dark Calibrated) */
   --unit-5-primary: #E8C878;
-  --unit-5-soft: rgba(232, 200, 120, 0.15);
-  --unit-5-border: rgba(235, 217, 154, 0.35);
-  --unit-5-text: #F6DF99;
+  --unit-5-soft: rgba(232, 200, 120, 0.20);
+  --unit-5-border: rgba(235, 217, 154, 0.40);
+  --unit-5-text: #FBE6A6;
 
   /* Unit 6: Classification & ML (Dark Calibrated) */
   --unit-6-primary: #D99AAF;
-  --unit-6-soft: rgba(217, 154, 175, 0.15);
-  --unit-6-border: rgba(229, 187, 201, 0.35);
-  --unit-6-text: #F3BFD0;
+  --unit-6-soft: rgba(217, 154, 175, 0.20);
+  --unit-6-border: rgba(229, 187, 201, 0.40);
+  --unit-6-text: #FACCDA;
 }
 
 body {
@@ -132,7 +132,7 @@ body {
 
 /* KaTeX Dark Mode Compatibility */
 html.dark .katex {
-  color: #F1F5F9;
+  color: #F8FAFC;
 }
 
 /* Micro-interaction animation utilities */

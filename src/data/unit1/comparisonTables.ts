@@ -1,0 +1,123 @@
+import { ComparisonTableData } from '@/types/experiences';
+
+export const UNIT_1_COMPARISONS: ComparisonTableData[] = [
+  {
+    id: 'u1-comp-central-tendency',
+    title: 'Measures of Central Tendency Comparison',
+    subtitle: 'Mean vs Median vs Mode — Sensitivity to Outliers and Distribution Geometry',
+    unitId: 'unit-1',
+    unitNumber: 1,
+    headers: [
+      { key: 'metric', label: 'Statistic', primary: true },
+      { key: 'formula', label: 'Mathematical Formula' },
+      { key: 'sensitivity', label: 'Outlier Sensitivity' },
+      { key: 'bestUse', label: 'Optimal Data Distribution' },
+      { key: 'example', label: 'Real-World Example' },
+    ],
+    rows: [
+      {
+        metric: 'Arithmetic Mean (x̄)',
+        formula: 'x̄ = (1/n) Σ x_i',
+        sensitivity: 'High (Pulls heavily toward extreme values)',
+        bestUse: 'Symmetric, Gaussian/Normal, unskewed numeric data',
+        example: 'Average temperature readings across calibrated sensors',
+      },
+      {
+        metric: 'Median (Q2 / 50th %ile)',
+        formula: 'Middle value of sorted array (or mean of 2 middle values)',
+        sensitivity: 'Robust (Completely resistant to extreme tail outliers)',
+        bestUse: 'Right-skewed or left-skewed continuous data (income, housing)',
+        example: 'Median household income or median house sale prices',
+      },
+      {
+        metric: 'Mode',
+        formula: 'Most frequently occurring element(s)',
+        sensitivity: 'Resistant (Independent of numerical magnitudes)',
+        bestUse: 'Categorical, nominal, or discrete counts',
+        example: 'Most popular customer subscription tier (e.g., "Pro")',
+      },
+    ],
+    keyTakeaway: 'In heavily skewed distributions (such as income or network latency), always report the Median alongside the Mean to avoid distorted perceptions.',
+    summaryNote: 'Mean = Median = Mode only occurs in perfectly symmetric unimodal distributions (such as the standard Normal curve).',
+  },
+  {
+    id: 'u1-comp-visualizations',
+    title: 'Exploratory Visualization Encoding Matrix',
+    subtitle: 'Choosing between Histogram, Box Plot, Scatter Plot, Bar Chart, and Density KDE',
+    unitId: 'unit-1',
+    unitNumber: 1,
+    headers: [
+      { key: 'chart', label: 'Chart Type', primary: true },
+      { key: 'dataType', label: 'Primary Variable Types' },
+      { key: 'strengths', label: 'Analytical Strengths' },
+      { key: 'limitations', label: 'Common Pitfalls' },
+      { key: 'bestFor', label: 'Best Analytical Question' },
+    ],
+    rows: [
+      {
+        chart: 'Histogram',
+        dataType: '1 Continuous Numeric Variable',
+        strengths: 'Reveals modality (unimodal/bimodal), skewness, and gaps',
+        limitations: 'Bin width selection can dramatically alter visual interpretation',
+        bestFor: 'What is the shape and spread of transaction amounts?',
+      },
+      {
+        chart: 'Box Plot (Tukey)',
+        dataType: '1 Continuous vs 1+ Categorical Group',
+        strengths: 'Shows 5-number summary and flags 1.5×IQR outliers cleanly',
+        limitations: 'Hides multi-modality (cannot distinguish uniform from bimodal)',
+        bestFor: 'How do salaries compare across different engineering departments?',
+      },
+      {
+        chart: 'Scatter Plot',
+        dataType: '2 Continuous Numeric Variables',
+        strengths: 'Detects linear/nonlinear trends, clustering, and bivariate outliers',
+        limitations: 'Overplotting occurs on dense datasets (>10k observations)',
+        bestFor: 'Is ad spend correlated with product sales volume?',
+      },
+      {
+        chart: 'Density Plot (KDE)',
+        dataType: '1 Continuous Numeric Variable',
+        strengths: 'Smooth probability density curve; great for comparing distributions',
+        limitations: 'Kernel bandwidth choice can over-smooth important peaks',
+        bestFor: 'How does test score density vary between cohorts?',
+      },
+      {
+        chart: 'Correlation Heatmap',
+        dataType: 'Matrix of Multivariate Continuous Features',
+        strengths: 'Color-coded correlation coefficients r ∈ [-1, 1] across all pairs',
+        limitations: 'Only captures linear relationships; ignores nonlinear dynamics',
+        bestFor: 'Which features suffer from severe multicollinearity?',
+      },
+    ],
+    keyTakeaway: 'Combine Box Plots with Density plots (e.g. Violin plots) when evaluating complex multi-modal continuous distributions.',
+  },
+  {
+    id: 'u1-comp-pop-sample',
+    title: 'Population vs Sample Statistical Distinction',
+    subtitle: 'Parameters vs Estimators, Degrees of Freedom, and Bessel Correction',
+    unitId: 'unit-1',
+    unitNumber: 1,
+    headers: [
+      { key: 'concept', label: 'Concept', primary: true },
+      { key: 'notation', label: 'Standard Notation' },
+      { key: 'denominator', label: 'Variance Denominator' },
+      { key: 'definition', label: 'Conceptual Definition' },
+    ],
+    rows: [
+      {
+        concept: 'Population Parameter',
+        notation: 'μ (Mean), σ² (Variance), σ (Std Dev), N (Size)',
+        denominator: 'Divide by N',
+        definition: 'The complete universe of all possible entities or observations under study',
+      },
+      {
+        concept: 'Sample Estimator',
+        notation: 'x̄ (Mean), s² (Variance), s (Std Dev), n (Size)',
+        denominator: 'Divide by (n - 1) [Bessel Correction]',
+        definition: 'A representative subset drawn from the population used to infer true parameters',
+      },
+    ],
+    keyTakeaway: 'Dividing by (n - 1) in sample variance corrects for the systemic bias caused by estimating the sample mean rather than the true population mean.',
+  },
+];

@@ -5,15 +5,17 @@ import {
   Sigma,
   Sparkles,
   Layers,
-  GraduationCap,
   FlaskConical,
   BarChart3,
-  Binary,
+  Cpu,
+  FolderGit2,
+  TableProperties,
+  BrainCircuit,
+  Eye,
+  Activity,
 } from 'lucide-react';
-import { UNITS_DATA, SAMPLE_FORMULAS, SAMPLE_FLASHCARDS } from '@/lib/constants';
+import { UNITS_DATA } from '@/lib/constants';
 import { CourseCard } from '@/components/cards/CourseCard';
-import { FormulaCard } from '@/components/cards/FormulaCard';
-import { Flashcard } from '@/components/cards/Flashcard';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { Button } from '@/components/ui/Button';
 import { AnimatedCounter } from '@/components/ui/AnimatedCounter';
@@ -22,23 +24,23 @@ export default function HomePage() {
   return (
     <div className="space-y-16">
       {/* Editorial Hero Section */}
-      <section className="relative rounded-3xl bg-white dark:bg-[#151F2B] border border-[#E2E8F0] dark:border-[#2E3B4A] p-6 sm:p-10 lg:p-12 shadow-xs overflow-hidden transition-colors">
+      <section className="relative rounded-3xl bg-white dark:bg-[#111827] border border-[#E2E8F0] dark:border-[#334155] p-6 sm:p-10 lg:p-14 shadow-xs overflow-hidden transition-colors">
         {/* Subtle geometric background accents */}
-        <div className="absolute -right-16 -top-16 w-80 h-80 rounded-full bg-blue-100/40 dark:bg-blue-900/10 blur-3xl pointer-events-none" />
-        <div className="absolute -left-16 -bottom-16 w-80 h-80 rounded-full bg-amber-100/30 dark:bg-amber-900/10 blur-3xl pointer-events-none" />
+        <div className="absolute -right-16 -top-16 w-96 h-96 rounded-full bg-blue-100/40 dark:bg-blue-900/10 blur-3xl pointer-events-none" />
+        <div className="absolute -left-16 -bottom-16 w-96 h-96 rounded-full bg-amber-100/30 dark:bg-amber-900/10 blur-3xl pointer-events-none" />
 
         <div className="max-w-3xl space-y-6 relative z-10">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#F1F5F9] dark:bg-[#202D3B] border border-[#E2E8F0] dark:border-[#2E3B4A] text-xs font-semibold text-[#475569] dark:text-[#CBD5E1]">
-            <Sparkles className="w-3.5 h-3.5 text-[#91B9E8]" />
-            <span>Interactive Scientific Learning Platform</span>
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800 text-xs font-bold text-blue-700 dark:text-blue-300">
+            <Sparkles className="w-3.5 h-3.5 text-blue-500 animate-pulse" />
+            <span>DATA SCIENCE LEARNING LAB</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-[#172033] dark:text-[#F1F5F9] leading-[1.15]">
-            Master Data Science through mathematical rigor and interactive labs.
+          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#0F172A] dark:text-[#F8FAFC] leading-[1.12]">
+            Learn Data Science by understanding the mathematics, intuition, and experiments behind it.
           </h1>
 
-          <p className="text-base sm:text-lg text-[#475569] dark:text-[#B8C4D1] leading-relaxed font-normal">
-            A structured six-unit curriculum spanning Exploratory Data Analysis, Linear Algebra, Matrix Transformations, Probability Theory, Regression Optimization, and Machine Learning.
+          <p className="text-base sm:text-lg text-[#475569] dark:text-[#CBD5E1] leading-relaxed font-normal">
+            A comprehensive, rigorous learning environment across 6 curriculum units, 60 interactive lessons, 24 computational labs, real-time mathematical simulations, and applied industry mini projects.
           </p>
 
           <div className="flex flex-wrap items-center gap-3 pt-2">
@@ -48,37 +50,101 @@ export default function HomePage() {
                 size="lg"
                 rightIcon={<ArrowRight className="w-4 h-4" />}
               >
-                Start Learning →
+                Launch Scholar Portal →
               </Button>
             </Link>
-            <Link href="/labs/eda">
+            <Link href="/units/1">
               <Button
                 variant="outline"
                 size="lg"
-                leftIcon={<FlaskConical className="w-4 h-4 text-[#64748B] dark:text-[#B8C4D1]" />}
+                leftIcon={<FlaskConical className="w-4 h-4 text-[#64748B] dark:text-[#94A3B8]" />}
               >
-                Explore Labs
+                Explore Unit 1 EDA
+              </Button>
+            </Link>
+            <Link href="/tutor">
+              <Button
+                variant="outline"
+                size="lg"
+                leftIcon={<BrainCircuit className="w-4 h-4 text-purple-600 dark:text-purple-400" />}
+              >
+                AI Math Tutor
               </Button>
             </Link>
           </div>
 
           {/* Animated Curriculum Stats Bar */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8 border-t border-[#F1F5F9] dark:border-[#2E3B4A]">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 pt-8 border-t border-[#F1F5F9] dark:border-[#334155]">
             <AnimatedCounter end={6} label="Curriculum Units" />
             <AnimatedCounter end={60} label="Interactive Lessons" />
             <AnimatedCounter end={24} label="Applied Labs" />
-            <AnimatedCounter end={86} label="Math Formulas" />
+            <AnimatedCounter end={6} label="Capstone Mini Projects" />
           </div>
         </div>
       </section>
 
-      {/* Six Units Grid */}
+      {/* "Learn Through Experiments" Section */}
+      <section className="space-y-6">
+        <SectionHeader
+          title="Learn Through Experiments"
+          subtitle="Our 4-pillar pedagogical framework transforms abstract equations into intuitive working knowledge."
+          badge={
+            <span className="p-1 rounded bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300">
+              <Activity className="w-4 h-4" />
+            </span>
+          }
+        />
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div className="p-5 bg-white dark:bg-[#111827] rounded-2xl border border-[#E2E8F0] dark:border-[#334155] shadow-xs space-y-2.5 hover-lift">
+            <div className="w-10 h-10 rounded-xl bg-orange-100 dark:bg-orange-950/40 text-orange-600 dark:text-orange-400 flex items-center justify-center">
+              <Eye className="w-5 h-5" />
+            </div>
+            <h4 className="text-sm font-bold text-[#0F172A] dark:text-[#F8FAFC]">1. Visualize</h4>
+            <p className="text-xs text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+              Interact with real-time vector coordinate planes, matrix transformations, probability curves, and decision boundaries.
+            </p>
+          </div>
+
+          <div className="p-5 bg-white dark:bg-[#111827] rounded-2xl border border-[#E2E8F0] dark:border-[#334155] shadow-xs space-y-2.5 hover-lift">
+            <div className="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-950/40 text-purple-600 dark:text-purple-400 flex items-center justify-center">
+              <Cpu className="w-5 h-5" />
+            </div>
+            <h4 className="text-sm font-bold text-[#0F172A] dark:text-[#F8FAFC]">2. Experiment</h4>
+            <p className="text-xs text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+              Inject outliers, tune learning rates, adjust classification thresholds, and run Monte Carlo simulations.
+            </p>
+          </div>
+
+          <div className="p-5 bg-white dark:bg-[#111827] rounded-2xl border border-[#E2E8F0] dark:border-[#334155] shadow-xs space-y-2.5 hover-lift">
+            <div className="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+              <TableProperties className="w-5 h-5" />
+            </div>
+            <h4 className="text-sm font-bold text-[#0F172A] dark:text-[#F8FAFC]">3. Analyze</h4>
+            <p className="text-xs text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+              Study side-by-side comparison tables, mathematical proofs, residual diagnostics, and full KaTeX formula sheets.
+            </p>
+          </div>
+
+          <div className="p-5 bg-white dark:bg-[#111827] rounded-2xl border border-[#E2E8F0] dark:border-[#334155] shadow-xs space-y-2.5 hover-lift">
+            <div className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+              <FolderGit2 className="w-5 h-5" />
+            </div>
+            <h4 className="text-sm font-bold text-[#0F172A] dark:text-[#F8FAFC]">4. Apply</h4>
+            <p className="text-xs text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+              Solve industrial mini projects in retail sales, recommendation cosine embeddings, A/B testing, and spam detection.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* "From Mathematics to Machine Learning" Curriculum Pathway */}
       <section id="curriculum" className="space-y-6">
         <SectionHeader
-          title="The Six-Course Curriculum"
-          subtitle="A progressive, prerequisite-driven path from foundational data manipulation to machine learning algorithms."
+          title="From Mathematics to Machine Learning"
+          subtitle="The complete six-unit curriculum journey with distinct pastel identities and specialized computational labs."
           badge={
-            <span className="p-1 rounded bg-[#F1F5F9] dark:bg-[#202D3B] text-[#172033] dark:text-[#F1F5F9]">
+            <span className="p-1 rounded bg-[#F1F5F9] dark:bg-[#1E293B] text-[#0F172A] dark:text-[#F8FAFC]">
               <Layers className="w-4 h-4" />
             </span>
           }
@@ -93,73 +159,42 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Interactive Feature Highlights */}
+      {/* Feature Showcase Grid */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="p-6 rounded-2xl bg-white dark:bg-[#151F2B] border border-[#E2E8F0] dark:border-[#2E3B4A] space-y-3">
-          <div className="w-10 h-10 rounded-xl bg-[#FCE5DC] dark:bg-[#202D3B] text-[#9E513B] dark:text-[#F4A58A] flex items-center justify-center">
+        <div className="p-6 rounded-2xl bg-white dark:bg-[#111827] border border-[#E2E8F0] dark:border-[#334155] space-y-3">
+          <div className="w-10 h-10 rounded-xl bg-[#FCE5DC] dark:bg-[#F4A58A]/20 text-[#9E513B] dark:text-[#FFC4B3] flex items-center justify-center">
             <BarChart3 className="w-5 h-5" />
           </div>
-          <h3 className="font-bold text-base text-[#172033] dark:text-[#F1F5F9]">
+          <h3 className="font-bold text-base text-[#0F172A] dark:text-[#F8FAFC]">
             Interactive Visualizations
           </h3>
-          <p className="text-xs text-[#64748B] dark:text-[#B8C4D1] leading-relaxed">
-            Real-time interactive Chart.js & SVG graphics for vector fields, transformations, probability curves, and decision boundaries.
+          <p className="text-xs text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+            KDE density estimates, ECDF curves, vector projections, matrix determinant areas, and ROC / PR curves.
           </p>
         </div>
 
-        <div className="p-6 rounded-2xl bg-white dark:bg-[#151F2B] border border-[#E2E8F0] dark:border-[#2E3B4A] space-y-3">
-          <div className="w-10 h-10 rounded-xl bg-[#E5EFFB] dark:bg-[#202D3B] text-[#416B9E] dark:text-[#91B9E8] flex items-center justify-center">
+        <div className="p-6 rounded-2xl bg-white dark:bg-[#111827] border border-[#E2E8F0] dark:border-[#334155] space-y-3">
+          <div className="w-10 h-10 rounded-xl bg-[#E5EFFB] dark:bg-[#91B9E8]/20 text-[#416B9E] dark:text-[#C6DEFA] flex items-center justify-center">
             <FlaskConical className="w-5 h-5" />
           </div>
-          <h3 className="font-bold text-base text-[#172033] dark:text-[#F1F5F9]">
-            Custom CSV Analysis Labs
+          <h3 className="font-bold text-base text-[#0F172A] dark:text-[#F8FAFC]">
+            Applied Computational Labs
           </h3>
-          <p className="text-xs text-[#64748B] dark:text-[#B8C4D1] leading-relaxed">
-            Upload your own local CSV files to compute distributions, fit OLS regression models, and inspect correlation matrices.
+          <p className="text-xs text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+            24 structured experimental workspaces with data cleaning, OLS optimization, PCA, and KNN decision boundaries.
           </p>
         </div>
 
-        <div className="p-6 rounded-2xl bg-white dark:bg-[#151F2B] border border-[#E2E8F0] dark:border-[#2E3B4A] space-y-3">
-          <div className="w-10 h-10 rounded-xl bg-[#EEE9F8] dark:bg-[#202D3B] text-[#68539A] dark:text-[#B7A3E3] flex items-center justify-center">
-            <Binary className="w-5 h-5" />
+        <div className="p-6 rounded-2xl bg-white dark:bg-[#111827] border border-[#E2E8F0] dark:border-[#334155] space-y-3">
+          <div className="w-10 h-10 rounded-xl bg-[#EEE9F8] dark:bg-[#B7A3E3]/20 text-[#68539A] dark:text-[#DFD3F8] flex items-center justify-center">
+            <Sigma className="w-5 h-5" />
           </div>
-          <h3 className="font-bold text-base text-[#172033] dark:text-[#F1F5F9]">
-            Zero-Compromise Mathematics
+          <h3 className="font-bold text-base text-[#0F172A] dark:text-[#F8FAFC]">
+            Zero-Compromise Mathematical Rigor
           </h3>
-          <p className="text-xs text-[#64748B] dark:text-[#B8C4D1] leading-relaxed">
-            Every lesson couples intuitive geometry with complete algebraic proofs, KaTeX notation, and deterministic math engines.
+          <p className="text-xs text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+            Every concept couples geometric intuition with exact algebraic formulas, KaTeX notation, and step-by-step solver derivations.
           </p>
-        </div>
-      </section>
-
-      {/* Educational Toolkit Highlights */}
-      <section className="bg-white dark:bg-[#151F2B] rounded-3xl border border-[#E2E8F0] dark:border-[#2E3B4A] p-6 sm:p-10 shadow-xs space-y-8 transition-colors">
-        <SectionHeader
-          title="Interactive Educational Toolkit"
-          subtitle="Explore the interactive study tools built into every unit, including KaTeX formula reference cards and spaced-repetition flashcards."
-          badge={
-            <span className="p-1 rounded bg-[#F1F5F9] dark:bg-[#202D3B] text-[#172033] dark:text-[#F1F5F9]">
-              <GraduationCap className="w-4 h-4" />
-            </span>
-          }
-        />
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="space-y-3">
-            <div className="flex items-center gap-2 text-xs font-bold text-[#64748B] dark:text-[#B8C4D1] uppercase tracking-wider">
-              <Sigma className="w-4 h-4 text-[#416B9E] dark:text-[#91B9E8]" />
-              <span>KaTeX Mathematical Formulas</span>
-            </div>
-            <FormulaCard formula={SAMPLE_FORMULAS[1]} />
-          </div>
-
-          <div className="space-y-3">
-            <div className="flex items-center gap-2 text-xs font-bold text-[#64748B] dark:text-[#B8C4D1] uppercase tracking-wider">
-              <Sparkles className="w-4 h-4 text-[#68539A] dark:text-[#B7A3E3]" />
-              <span>Interactive Concept Flashcard (Click to Flip)</span>
-            </div>
-            <Flashcard card={SAMPLE_FLASHCARDS[1]} />
-          </div>
         </div>
       </section>
     </div>

@@ -1,0 +1,101 @@
+import { ComparisonTableData } from '@/types/experiences';
+
+export const UNIT_6_COMPARISONS: ComparisonTableData[] = [
+  {
+    id: 'u6-comp-metrics',
+    title: 'Classification Metrics & Confusion Matrix Dynamics',
+    subtitle: 'Accuracy vs Precision vs Recall vs F1-Score vs ROC-AUC',
+    unitId: 'unit-6',
+    unitNumber: 6,
+    headers: [
+      { key: 'metric', label: 'Evaluation Metric', primary: true },
+      { key: 'formula', label: 'Mathematical Formula' },
+      { key: 'focus', label: 'Diagnostic Focus' },
+      { key: 'imbalance', label: 'Behavior on Imbalanced Data' },
+      { key: 'bestUse', label: 'Mission-Critical Use Case' },
+    ],
+    rows: [
+      {
+        metric: 'Accuracy',
+        formula: '(TP + TN) / (TP + TN + FP + FN)',
+        focus: 'Overall correct prediction proportion',
+        imbalance: 'Misleading (A model predicting 99% majority class gets 99% accuracy)',
+        bestUse: 'Balanced datasets with equal error consequence across all classes',
+      },
+      {
+        metric: 'Precision (Positive Predictive Value)',
+        formula: 'TP / (TP + FP)',
+        focus: 'Minimizing False Positives (Cost of false alarm is catastrophic)',
+        imbalance: 'Reliable for minority positive class evaluation',
+        bestUse: 'Spam filters (never send legitimate CEO email to spam), YouTube search results',
+      },
+      {
+        metric: 'Recall (Sensitivity / True Positive Rate)',
+        formula: 'TP / (TP + FN)',
+        focus: 'Minimizing False Negatives (Cost of missing a true positive is catastrophic)',
+        imbalance: 'Crucial for detecting rare critical events',
+        bestUse: 'Cancer detection, fraud detection, aircraft defect inspection',
+      },
+      {
+        metric: 'F1-Score',
+        formula: '2 · (Precision · Recall) / (Precision + Recall)',
+        focus: 'Harmonic mean balancing precision and recall trade-offs',
+        imbalance: 'Excellent single summary metric for imbalanced benchmarks',
+        bestUse: 'General classifier benchmarking with uneven class distributions',
+      },
+      {
+        metric: 'ROC-AUC (Area Under ROC Curve)',
+        formula: 'Integral of TPR vs FPR across all classification thresholds t ∈ [0, 1]',
+        focus: 'Ranking quality invariant to decision threshold choice',
+        imbalance: 'Can be overly optimistic if negative class is overwhelming',
+        bestUse: 'Comparing underlying model scoring discriminative power prior to tuning threshold',
+      },
+    ],
+    keyTakeaway: 'In medical diagnosis or fraud screening, optimize for Recall (Sensitivity); in spam filtering or loan approval, optimize for Precision.',
+  },
+  {
+    id: 'u6-comp-algorithms',
+    title: 'Supervised Classification Algorithms Comparison',
+    subtitle: 'Logistic Regression vs K-Nearest Neighbors vs Decision Trees vs Naive Bayes',
+    unitId: 'unit-6',
+    unitNumber: 6,
+    headers: [
+      { key: 'algo', label: 'Algorithm', primary: true },
+      { key: 'boundaryType', label: 'Decision Boundary Geometry' },
+      { key: 'trainingSpeed', label: 'Training / Inference Speed' },
+      { key: 'interpretability', label: 'Interpretability' },
+      { key: 'assumptions', label: 'Key Assumptions' },
+    ],
+    rows: [
+      {
+        algo: 'Logistic Regression',
+        boundaryType: 'Linear Hyperplane (wᵀx + b = 0)',
+        trainingSpeed: 'Ultra Fast / O(d) inference',
+        interpretability: 'High (Weights represent log-odds multipliers)',
+        assumptions: 'Log-odds linearity, independent observations',
+      },
+      {
+        algo: 'K-Nearest Neighbors (KNN)',
+        boundaryType: 'Non-linear Voronoi Piecewise Polygons',
+        trainingSpeed: 'Lazy (No training) / Slow O(n·d) inference',
+        interpretability: 'Moderate (Explainable via nearest neighbor instances)',
+        assumptions: 'Smooth local Euclidean metric space; sensitive to feature scaling',
+      },
+      {
+        algo: 'Decision Trees (CART)',
+        boundaryType: 'Axis-Aligned Rectangular Orthogonal Splits',
+        trainingSpeed: 'Fast O(n·d·log n) / Ultra Fast O(depth) inference',
+        interpretability: 'Very High (Direct human-readable IF-THEN rules)',
+        assumptions: 'Non-parametric; prone to high variance/overfitting if unpruned',
+      },
+      {
+        algo: 'Gaussian Naive Bayes',
+        boundaryType: 'Quadratic / Linear (Bayesian Posterior)',
+        trainingSpeed: 'Instantaneous O(n·d) / Very Fast inference',
+        interpretability: 'High (Direct conditional probability contributions)',
+        assumptions: 'Conditional feature independence given class label P(x_i|y)',
+      },
+    ],
+    keyTakeaway: 'Logistic regression serves as the foundational linear baseline; for complex nonlinear interactions, use ensemble tree models or kernel methods.',
+  },
+];

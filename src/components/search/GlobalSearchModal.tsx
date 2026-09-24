@@ -13,6 +13,9 @@ import {
   BrainCircuit,
   FileSpreadsheet,
   User,
+  FolderGit2,
+  Cpu,
+  TableProperties,
 } from 'lucide-react';
 import { UNITS_DATA } from '@/lib/constants';
 import { UNIT_1_LESSONS } from '@/data/unit1/lessons';
@@ -30,7 +33,7 @@ import { UNIT_6_FORMULAS } from '@/data/unit6/formulas';
 
 interface SearchItem {
   id: string;
-  type: 'unit' | 'lesson' | 'lab' | 'formula' | 'tool';
+  type: 'unit' | 'lesson' | 'lab' | 'formula' | 'tool' | 'project' | 'simulation' | 'table';
   title: string;
   subtitle: string;
   url: string;
@@ -70,6 +73,24 @@ const ALL_LABS: SearchItem[] = [
   { id: 'lab-log-reg', type: 'lab', title: 'Logistic Regression Lab', subtitle: 'Sigmoid activation, log-odds & binary frontiers', url: '/labs/logistic-regression', unitNumber: 6 },
   { id: 'lab-knn', type: 'lab', title: 'K-Nearest Neighbors Lab', subtitle: 'Distance metrics, k-tuning & Voronoi tessellations', url: '/labs/knn', unitNumber: 6 },
   { id: 'lab-eval', type: 'lab', title: 'Model Evaluation Lab', subtitle: 'Confusion matrices, precision, recall, F1 & ROC', url: '/labs/model-evaluation', unitNumber: 6 },
+];
+
+const MINI_PROJECTS: SearchItem[] = [
+  { id: 'proj-1', type: 'project', title: 'Retail E-Commerce Sales EDA & Outlier Project', subtitle: 'Unit 1 Mini Project • 5-number summary and revenue skewness', url: '/units/1', unitNumber: 1, badge: 'Mini Project' },
+  { id: 'proj-2', type: 'project', title: 'Streaming Content Vector Embedding Recommender', subtitle: 'Unit 2 Mini Project • Cosine similarity genre recommender', url: '/units/2', unitNumber: 2, badge: 'Mini Project' },
+  { id: 'proj-3', type: 'project', title: 'Computer Vision 2D Affine Matrix Transformations', subtitle: 'Unit 3 Mini Project • Rotation, shear & determinant area', url: '/units/3', unitNumber: 3, badge: 'Mini Project' },
+  { id: 'proj-4', type: 'project', title: 'E-Commerce Checkout Funnel Two-Sample Z-Test', subtitle: 'Unit 4 Mini Project • A/B testing conversion rate lift', url: '/units/4', unitNumber: 4, badge: 'Mini Project' },
+  { id: 'proj-5', type: 'project', title: 'Real Estate Multiple Linear Regression Project', subtitle: 'Unit 5 Mini Project • House price OLS & residual diagnostics', url: '/units/5', unitNumber: 5, badge: 'Mini Project' },
+  { id: 'proj-6', type: 'project', title: 'NLP Email Spam Classifier & Threshold Tuning', subtitle: 'Unit 6 Mini Project • Precision-recall optimization & ROC', url: '/units/6', unitNumber: 6, badge: 'Mini Project' },
+];
+
+const SIMULATIONS: SearchItem[] = [
+  { id: 'sim-1', type: 'simulation', title: 'EDA Distribution & Outlier Simulator', subtitle: 'Unit 1 Simulator • Sample size, skewness, and Tukey fences', url: '/units/1', unitNumber: 1, badge: 'Simulation' },
+  { id: 'sim-2', type: 'simulation', title: '2D Vector Space & Projection Explorer', subtitle: 'Unit 2 Simulator • Angle θ, dot product, and projections', url: '/units/2', unitNumber: 2, badge: 'Simulation' },
+  { id: 'sim-3', type: 'simulation', title: '2D Matrix Transformation & Determinant Visualizer', subtitle: 'Unit 3 Simulator • Basis vector grid distortion & area scaling', url: '/units/3', unitNumber: 3, badge: 'Simulation' },
+  { id: 'sim-4', type: 'simulation', title: 'Central Limit Theorem & Sampling Simulator', subtitle: 'Unit 4 Simulator • Monte Carlo trials & Bell Curve convergence', url: '/units/4', unitNumber: 4, badge: 'Simulation' },
+  { id: 'sim-5', type: 'simulation', title: 'Visual Gradient Descent & Loss Curve Playground', subtitle: 'Unit 5 Simulator • Learning rate α, convex loss & step trajectory', url: '/units/5', unitNumber: 5, badge: 'Simulation' },
+  { id: 'sim-6', type: 'simulation', title: 'Decision Threshold & Confusion Matrix Explorer', subtitle: 'Unit 6 Simulator • Dynamic TP, FP, Precision, Recall trade-offs', url: '/units/6', unitNumber: 6, badge: 'Simulation' },
 ];
 
 const PLATFORM_TOOLS: SearchItem[] = [
@@ -122,8 +143,12 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
   const allSearchItems = useMemo<SearchItem[]>(() => {
     const items: SearchItem[] = [];
 
-    // Platform Tools & Portals First
+    // Platform Tools First
     items.push(...PLATFORM_TOOLS);
+
+    // Mini Projects & Simulations
+    items.push(...MINI_PROJECTS);
+    items.push(...SIMULATIONS);
 
     // Units
     UNITS_DATA.forEach((u) => {
@@ -191,7 +216,6 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
   // Filter items by search query
   const filteredItems = useMemo(() => {
     if (!query.trim()) {
-      // Show default top items
       return allSearchItems.slice(0, 10);
     }
     const q = query.toLowerCase();
@@ -262,42 +286,42 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
       onClick={handleClose}
     >
       <div
-        className="w-full max-w-2xl bg-white dark:bg-[#151F2B] rounded-2xl shadow-2xl border border-[#CBD5E1] dark:border-[#2E3B4A] overflow-hidden flex flex-col max-h-[80vh]"
+        className="w-full max-w-2xl bg-white dark:bg-[#111827] rounded-2xl shadow-2xl border border-[#CBD5E1] dark:border-[#334155] overflow-hidden flex flex-col max-h-[80vh]"
         onClick={(e) => e.stopPropagation()}
         onKeyDown={handleKeyDown}
       >
         {/* Search Input Bar */}
-        <div className="flex items-center gap-3 px-4 py-3.5 border-b border-[#E2E8F0] dark:border-[#2E3B4A] bg-[#F8FAFC] dark:bg-[#101923]">
+        <div className="flex items-center gap-3 px-4 py-3.5 border-b border-[#E2E8F0] dark:border-[#334155] bg-[#F8FAFC] dark:bg-[#172033]">
           <Search className="w-5 h-5 text-[#64748B] dark:text-[#91B9E8] shrink-0" />
           <input
             ref={inputRef}
             type="text"
             value={query}
             onChange={(e) => handleQueryChange(e.target.value)}
-            placeholder="Search lessons, labs, math formulas, tutor, revision..."
-            className="flex-1 bg-transparent text-sm sm:text-base text-[#0F172A] dark:text-[#F1F5F9] placeholder-[#94A3B8] dark:placeholder-[#7F8B99] outline-none font-medium"
+            placeholder="Search lessons, labs, mini projects, simulations, formulas..."
+            className="flex-1 bg-transparent text-sm sm:text-base text-[#0F172A] dark:text-[#F8FAFC] placeholder-[#94A3B8] outline-none font-medium"
           />
           {query && (
             <button
               onClick={() => handleQueryChange('')}
-              className="p-1 rounded-md text-[#94A3B8] hover:text-[#0F172A] dark:hover:text-white transition-colors"
+              className="p-1 rounded-md text-[#94A3B8] hover:text-[#0F172A] dark:hover:text-white transition-colors cursor-pointer"
               aria-label="Clear query"
             >
               <X className="w-4 h-4" />
             </button>
           )}
-          <span className="hidden sm:inline-flex text-[10px] font-semibold text-[#64748B] dark:text-[#CBD5E1] bg-white dark:bg-[#202D3B] px-1.5 py-0.5 rounded border border-[#CBD5E1] dark:border-[#2E3B4A]">
+          <span className="hidden sm:inline-flex text-[10px] font-semibold text-[#64748B] dark:text-[#CBD5E1] bg-white dark:bg-[#1E293B] px-1.5 py-0.5 rounded border border-[#CBD5E1] dark:border-[#334155]">
             ESC to close
           </span>
         </div>
 
         {/* Results List */}
-        <div className="flex-1 overflow-y-auto p-2 divide-y divide-[#F1F5F9] dark:divide-[#202D3B]">
+        <div className="flex-1 overflow-y-auto p-2 divide-y divide-[#F1F5F9] dark:divide-[#1E293B]">
           {filteredItems.length === 0 ? (
-            <div className="py-12 text-center text-[#64748B] dark:text-[#B8C4D1] space-y-2">
-              <Search className="w-8 h-8 mx-auto text-[#94A3B8] dark:text-[#7F8B99]" />
+            <div className="py-12 text-center text-[#64748B] dark:text-[#94A3B8] space-y-2">
+              <Search className="w-8 h-8 mx-auto text-[#94A3B8]" />
               <p className="text-sm font-semibold">No results found for &ldquo;{query}&rdquo;</p>
-              <p className="text-xs">Try searching for &ldquo;tutor&rdquo;, &ldquo;revision&rdquo;, &ldquo;regression&rdquo;, &ldquo;matrix&rdquo;, or &ldquo;Unit 1&rdquo;.</p>
+              <p className="text-xs">Try searching for &ldquo;mini project&rdquo;, &ldquo;simulation&rdquo;, &ldquo;regression&rdquo;, or &ldquo;Unit 1&rdquo;.</p>
             </div>
           ) : (
             filteredItems.map((item, index) => {
@@ -309,8 +333,8 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
                   onMouseEnter={() => setSelectedIndex(index)}
                   className={`w-full text-left flex items-start gap-3 p-3 rounded-xl transition-colors cursor-pointer ${
                     isSelected
-                      ? 'bg-[#F1F5F9] dark:bg-[#202D3B] text-[#0F172A] dark:text-[#F1F5F9]'
-                      : 'hover:bg-[#F8FAFC] dark:hover:bg-[#1B2735] text-[#334155] dark:text-[#CBD5E1]'
+                      ? 'bg-[#F1F5F9] dark:bg-[#1E293B] text-[#0F172A] dark:text-[#F8FAFC]'
+                      : 'hover:bg-[#F8FAFC] dark:hover:bg-[#172033] text-[#334155] dark:text-[#CBD5E1]'
                   }`}
                 >
                   <div
@@ -325,6 +349,9 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
                     {item.type === 'lesson' && <BookOpen className="w-4 h-4 text-[#3F7951] dark:text-[#8FC7A3]" />}
                     {item.type === 'lab' && <FlaskConical className="w-4 h-4 text-[#68539A] dark:text-[#B7A3E3]" />}
                     {item.type === 'formula' && <Sigma className="w-4 h-4 text-[#9E513B] dark:text-[#F4A58A]" />}
+                    {item.type === 'project' && <FolderGit2 className="w-4 h-4 text-blue-600 dark:text-blue-400" />}
+                    {item.type === 'simulation' && <Cpu className="w-4 h-4 text-purple-600 dark:text-purple-400" />}
+                    {item.type === 'table' && <TableProperties className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />}
                     {item.type === 'tool' && (
                       item.id === 'tool-tutor' ? (
                         <BrainCircuit className="w-4 h-4 text-purple-600 dark:text-purple-400" />
@@ -338,22 +365,22 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
 
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <span className="text-sm font-bold truncate text-[#172033] dark:text-[#F1F5F9]">
+                      <span className="text-sm font-bold truncate text-[#0F172A] dark:text-[#F8FAFC]">
                         {item.title}
                       </span>
                       {item.badge && (
-                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[#E2E8F0] dark:bg-[#1B2735] text-[#475569] dark:text-[#B8C4D1] shrink-0">
+                        <span className="text-[10px] font-semibold px-2 py-0.5 rounded-full bg-[#E2E8F0] dark:bg-[#1E293B] text-[#475569] dark:text-[#CBD5E1] shrink-0">
                           {item.badge}
                         </span>
                       )}
                     </div>
-                    <p className="text-xs text-[#64748B] dark:text-[#B8C4D1] line-clamp-1 mt-0.5">
+                    <p className="text-xs text-[#64748B] dark:text-[#94A3B8] line-clamp-1 mt-0.5">
                       {item.subtitle}
                     </p>
                   </div>
 
                   {isSelected && (
-                    <CornerDownLeft className="w-4 h-4 text-[#94A3B8] dark:text-[#7F8B99] shrink-0 self-center" />
+                    <CornerDownLeft className="w-4 h-4 text-[#94A3B8] shrink-0 self-center" />
                   )}
                 </button>
               );
@@ -362,17 +389,17 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
         </div>
 
         {/* Footer Shortcut Guide */}
-        <div className="px-4 py-2.5 bg-[#F8FAFC] dark:bg-[#101923] border-t border-[#E2E8F0] dark:border-[#2E3B4A] flex items-center justify-between text-[11px] text-[#64748B] dark:text-[#B8C4D1]">
+        <div className="px-4 py-2.5 bg-[#F8FAFC] dark:bg-[#172033] border-t border-[#E2E8F0] dark:border-[#334155] flex items-center justify-between text-[11px] text-[#64748B] dark:text-[#94A3B8]">
           <div className="flex items-center gap-3">
             <span>
-              <kbd className="px-1.5 py-0.5 bg-white dark:bg-[#202D3B] border border-[#CBD5E1] dark:border-[#2E3B4A] rounded text-[10px] font-mono">↑</kbd>{' '}
-              <kbd className="px-1.5 py-0.5 bg-white dark:bg-[#202D3B] border border-[#CBD5E1] dark:border-[#2E3B4A] rounded text-[10px] font-mono">↓</kbd> Navigate
+              <kbd className="px-1.5 py-0.5 bg-white dark:bg-[#1E293B] border border-[#CBD5E1] dark:border-[#334155] rounded text-[10px] font-mono">↑</kbd>{' '}
+              <kbd className="px-1.5 py-0.5 bg-white dark:bg-[#1E293B] border border-[#CBD5E1] dark:border-[#334155] rounded text-[10px] font-mono">↓</kbd> Navigate
             </span>
             <span>
-              <kbd className="px-1.5 py-0.5 bg-white dark:bg-[#202D3B] border border-[#CBD5E1] dark:border-[#2E3B4A] rounded text-[10px] font-mono">↵</kbd> Select
+              <kbd className="px-1.5 py-0.5 bg-white dark:bg-[#1E293B] border border-[#CBD5E1] dark:border-[#334155] rounded text-[10px] font-mono">↵</kbd> Select
             </span>
           </div>
-          <span>{filteredItems.length} items available</span>
+          <span>{filteredItems.length} items searchable</span>
         </div>
       </div>
     </div>
