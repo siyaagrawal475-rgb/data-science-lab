@@ -10,6 +10,9 @@ import {
   Layers,
   X,
   CornerDownLeft,
+  BrainCircuit,
+  FileSpreadsheet,
+  User,
 } from 'lucide-react';
 import { UNITS_DATA } from '@/lib/constants';
 import { UNIT_1_LESSONS } from '@/data/unit1/lessons';
@@ -27,7 +30,7 @@ import { UNIT_6_FORMULAS } from '@/data/unit6/formulas';
 
 interface SearchItem {
   id: string;
-  type: 'unit' | 'lesson' | 'lab' | 'formula';
+  type: 'unit' | 'lesson' | 'lab' | 'formula' | 'tool';
   title: string;
   subtitle: string;
   url: string;
@@ -69,6 +72,41 @@ const ALL_LABS: SearchItem[] = [
   { id: 'lab-eval', type: 'lab', title: 'Model Evaluation Lab', subtitle: 'Confusion matrices, precision, recall, F1 & ROC', url: '/labs/model-evaluation', unitNumber: 6 },
 ];
 
+const PLATFORM_TOOLS: SearchItem[] = [
+  {
+    id: 'tool-tutor',
+    type: 'tool',
+    title: 'Local AI Tutor & Solver',
+    subtitle: 'Transparent step-by-step math solver, derivation steps, and Python code generator',
+    url: '/tutor',
+    badge: 'AI Assistant',
+  },
+  {
+    id: 'tool-revision',
+    type: 'tool',
+    title: 'Revision & Formula Center',
+    subtitle: 'High-yield formula sheet with LaTeX copy, quick review, and print summary',
+    url: '/revision',
+    badge: 'Revision Hub',
+  },
+  {
+    id: 'tool-profile',
+    type: 'tool',
+    title: 'Scholar Profile & Activity',
+    subtitle: 'Student PRN identification, study timer logs, session history, and CSV export',
+    url: '/profile',
+    badge: 'Student Portal',
+  },
+  {
+    id: 'tool-dashboard',
+    type: 'tool',
+    title: 'Student Dashboard',
+    subtitle: 'Curriculum overview, progress metrics, and unit launchers',
+    url: '/dashboard',
+    badge: 'Navigation',
+  },
+];
+
 interface GlobalSearchModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -83,6 +121,9 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
   // Compile all searchable platform items
   const allSearchItems = useMemo<SearchItem[]>(() => {
     const items: SearchItem[] = [];
+
+    // Platform Tools & Portals First
+    items.push(...PLATFORM_TOOLS);
 
     // Units
     UNITS_DATA.forEach((u) => {
@@ -150,7 +191,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
   // Filter items by search query
   const filteredItems = useMemo(() => {
     if (!query.trim()) {
-      // Show default top items (6 units + sample labs)
+      // Show default top items
       return allSearchItems.slice(0, 10);
     }
     const q = query.toLowerCase();
@@ -233,7 +274,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
             type="text"
             value={query}
             onChange={(e) => handleQueryChange(e.target.value)}
-            placeholder="Search lessons, labs, math formulas, units..."
+            placeholder="Search lessons, labs, math formulas, tutor, revision..."
             className="flex-1 bg-transparent text-sm sm:text-base text-[#0F172A] dark:text-[#F1F5F9] placeholder-[#94A3B8] dark:placeholder-[#7F8B99] outline-none font-medium"
           />
           {query && (
@@ -256,7 +297,7 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
             <div className="py-12 text-center text-[#64748B] dark:text-[#B8C4D1] space-y-2">
               <Search className="w-8 h-8 mx-auto text-[#94A3B8] dark:text-[#7F8B99]" />
               <p className="text-sm font-semibold">No results found for &ldquo;{query}&rdquo;</p>
-              <p className="text-xs">Try searching for &ldquo;regression&rdquo;, &ldquo;matrix&rdquo;, &ldquo;EDA&rdquo;, or &ldquo;Unit 1&rdquo;.</p>
+              <p className="text-xs">Try searching for &ldquo;tutor&rdquo;, &ldquo;revision&rdquo;, &ldquo;regression&rdquo;, &ldquo;matrix&rdquo;, or &ldquo;Unit 1&rdquo;.</p>
             </div>
           ) : (
             filteredItems.map((item, index) => {
@@ -284,6 +325,15 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
                     {item.type === 'lesson' && <BookOpen className="w-4 h-4 text-[#3F7951] dark:text-[#8FC7A3]" />}
                     {item.type === 'lab' && <FlaskConical className="w-4 h-4 text-[#68539A] dark:text-[#B7A3E3]" />}
                     {item.type === 'formula' && <Sigma className="w-4 h-4 text-[#9E513B] dark:text-[#F4A58A]" />}
+                    {item.type === 'tool' && (
+                      item.id === 'tool-tutor' ? (
+                        <BrainCircuit className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+                      ) : item.id === 'tool-revision' ? (
+                        <FileSpreadsheet className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                      ) : (
+                        <User className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                      )
+                    )}
                   </div>
 
                   <div className="flex-1 min-w-0">

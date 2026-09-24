@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import {
   BookOpen,
@@ -8,19 +8,27 @@ import {
   GraduationCap,
   ArrowRight,
   TrendingUp,
-  CheckCircle2,
   Sparkles,
+  Download,
+  User,
+  BrainCircuit,
+  FileSpreadsheet,
+  Clock,
+  CheckCircle2,
 } from 'lucide-react';
 import { UNITS_DATA } from '@/lib/constants';
-import { useGlobalProgress } from '@/lib/progress';
+import { useGlobalProgress, getRecentActivity, exportStudyReportCSV, ActivityEvent } from '@/lib/progress';
+import { useAuth } from '@/context/AuthContext';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { SectionHeader } from '@/components/ui/SectionHeader';
 import { CourseCard } from '@/components/cards/CourseCard';
 import { ProgressBar } from '@/components/ui/ProgressBar';
 import { UnitBadge } from '@/components/ui/UnitBadge';
 import { Button } from '@/components/ui/Button';
+import { StudyTimerWidget } from '@/components/ui/StudyTimerWidget';
 
 export default function DashboardPage() {
+  const { user } = useAuth();
   const {
     overallPercentage,
     totalLessonsCompleted,
@@ -29,6 +37,25 @@ export default function DashboardPage() {
     unitPercentages,
     activeUnitId,
   } = useGlobalProgress();
+
+  const [recentActivities, setRecentActivities] = useState<ActivityEvent[]>(() => {
+    if (typeof window === 'undefined') return [];
+    try {
+      return getRecentActivity();
+    } catch {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    const handleUpdate = () => setRecentActivities(getRecentActivity());
+    window.addEventListener('dsl-activity-updated', handleUpdate);
+    window.addEventListener('dsl-progress-updated', handleUpdate);
+    return () => {
+      window.removeEventListener('dsl-activity-updated', handleUpdate);
+      window.removeEventListener('dsl-progress-updated', handleUpdate);
+    };
+  }, []);
 
   const activeUnit = UNITS_DATA.find((u) => u.id === activeUnitId) || UNITS_DATA[0];
   const activeUnitPercent = unitPercentages[activeUnit.id] || 0;
@@ -40,26 +67,101 @@ export default function DashboardPage() {
     progressPercent: unitPercentages[u.id] || 0,
   }));
 
+  const handleExportCSV = () => {
+    exportStudyReportCSV(user?.name || 'Scholar', user?.prn || 'GUEST-MODE');
+  };
+
   return (
     <div className="space-y-10">
       {/* Dashboard Page Header */}
       <PageHeader
-        title="Student Dashboard"
-        description="Track your mastery across the six Data Science units, resume lessons, and run interactive computational labs."
+        title={
+          user
+            ? `Welcome back, ${user.name}`
+            : 'Student Dashboard'
+        }
+        description={
+          user?.prn
+            ? `PRN: ${user.prn} • Real-time curriculum tracking, interactive labs, and computational revision.`
+            : 'Track your mastery across the six Data Science units, resume lessons, and run interactive computational labs.'
+        }
         breadcrumbs={[{ label: 'Dashboard' }]}
         actions={
-          <Link href={`/units/${activeUnit.unitNumber}`}>
+          <div className="flex flex-wrap items-center gap-2">
             <Button
-              variant="unit"
-              unitId={activeUnit.id}
+              variant="outline"
               size="sm"
-              rightIcon={<ArrowRight className="w-4 h-4" />}
+              onClick={handleExportCSV}
+              leftIcon={<Download className="w-4 h-4" />}
             >
-              {isBrandNew ? `Start Unit ${activeUnit.unitNumber}` : `Resume Unit ${activeUnit.unitNumber}`}
+              Export Report
             </Button>
-          </Link>
+            <Link href={`/units/${activeUnit.unitNumber}`}>
+              <Button
+                variant="unit"
+                unitId={activeUnit.id}
+                size="sm"
+                rightIcon={<ArrowRight className="w-4 h-4" />}
+              >
+                {isBrandNew ? `Start Unit ${activeUnit.unitNumber}` : `Resume Unit ${activeUnit.unitNumber}`}
+              </Button>
+            </Link>
+          </div>
         }
       />
+
+      {/* Top Banner: Quick Access Hub & Focus Timer */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {/* Left: Study Focus Timer */}
+        <div className="lg:col-span-1">
+          <StudyTimerWidget />
+        </div>
+
+        {/* Right: Quick Revision & Tutor Launchers */}
+        <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <Link
+            href="/revision"
+            className="p-5 rounded-2xl bg-white dark:bg-[#151F2B] border border-[#E2E8F0] dark:border-[#2E3B4A] shadow-xs hover-lift flex flex-col justify-between group transition-colors"
+          >
+            <div className="space-y-2">
+              <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+                <FileSpreadsheet className="w-5 h-5" />
+              </div>
+              <h4 className="text-sm font-bold text-[#172033] dark:text-[#F1F5F9] group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                Revision & Formula Center
+              </h4>
+              <p className="text-xs text-[#64748B] dark:text-[#B8C4D1] leading-relaxed">
+                Formulas with LaTeX copy, key equations, common pitfalls, and print-ready summary sheets.
+              </p>
+            </div>
+            <div className="pt-4 flex items-center text-xs font-semibold text-blue-600 dark:text-blue-400">
+              <span>Open Quick Revision</span>
+              <ArrowRight className="w-3.5 h-3.5 ml-1 transition-transform group-hover:translate-x-1" />
+            </div>
+          </Link>
+
+          <Link
+            href="/tutor"
+            className="p-5 rounded-2xl bg-white dark:bg-[#151F2B] border border-[#E2E8F0] dark:border-[#2E3B4A] shadow-xs hover-lift flex flex-col justify-between group transition-colors"
+          >
+            <div className="space-y-2">
+              <div className="w-10 h-10 rounded-xl bg-purple-50 dark:bg-purple-950/40 text-purple-600 dark:text-purple-400 flex items-center justify-center">
+                <BrainCircuit className="w-5 h-5" />
+              </div>
+              <h4 className="text-sm font-bold text-[#172033] dark:text-[#F1F5F9] group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                Local AI Tutor & Solver
+              </h4>
+              <p className="text-xs text-[#64748B] dark:text-[#B8C4D1] leading-relaxed">
+                Deterministic step-by-step math solver, conceptual breakdown, and code generation across Units 1–6.
+              </p>
+            </div>
+            <div className="pt-4 flex items-center text-xs font-semibold text-purple-600 dark:text-purple-400">
+              <span>Ask AI Tutor</span>
+              <ArrowRight className="w-3.5 h-3.5 ml-1 transition-transform group-hover:translate-x-1" />
+            </div>
+          </Link>
+        </div>
+      </div>
 
       {/* Metrics Summary Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
@@ -158,7 +260,7 @@ export default function DashboardPage() {
       <section className="space-y-6">
         <SectionHeader
           title="All Curriculum Units"
-          subtitle="Your real-time progress across all six modular Data Science courses."
+          subtitle="Your real-time progress across all six modular Data Science courses. Press keys 1-6 on your keyboard to navigate."
         />
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -170,14 +272,20 @@ export default function DashboardPage() {
         </div>
       </section>
 
-      {/* Recent Learning Activity / Empty State */}
+      {/* Real Learning Activity Stream */}
       <section className="bg-white dark:bg-[#151F2B] rounded-2xl border border-[#E2E8F0] dark:border-[#2E3B4A] p-6 shadow-xs space-y-4 transition-colors">
-        <SectionHeader
-          title="Recent Learning Activity"
-          subtitle="Your completed modules, labs, and knowledge assessments."
-        />
+        <div className="flex items-center justify-between">
+          <SectionHeader
+            title="Recent Learning Activity"
+            subtitle="Real logged actions from your study sessions."
+          />
+          <Link href="/profile" className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1">
+            <User className="w-3.5 h-3.5" />
+            Scholar Profile
+          </Link>
+        </div>
 
-        {isBrandNew ? (
+        {recentActivities.length === 0 ? (
           <div className="p-8 text-center bg-[#F8FAFC] dark:bg-[#101923] rounded-xl border border-dashed border-[#CBD5E1] dark:border-[#2E3B4A] space-y-3">
             <div className="inline-flex p-3 rounded-full bg-white dark:bg-[#1B2735] border border-[#E2E8F0] dark:border-[#2E3B4A] text-[#64748B] dark:text-[#B8C4D1]">
               <Sparkles className="w-5 h-5 text-[#91B9E8]" />
@@ -197,23 +305,39 @@ export default function DashboardPage() {
             </div>
           </div>
         ) : (
-          <div className="p-4 bg-[#F8FAFC] dark:bg-[#101923] rounded-xl border border-[#E2E8F0] dark:border-[#2E3B4A] flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <CheckCircle2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
-              <div>
-                <span className="text-xs font-semibold text-[#172033] dark:text-[#F1F5F9] block">
-                  {totalLessonsCompleted} Lessons and {totalLabsCompleted} Labs completed
-                </span>
-                <span className="text-[11px] text-[#64748B] dark:text-[#B8C4D1]">
-                  Keep progressing toward full curriculum mastery!
-                </span>
+          <div className="space-y-2">
+            {recentActivities.slice(0, 5).map((act) => (
+              <div
+                key={act.id}
+                className="p-3.5 bg-[#F8FAFC] dark:bg-[#101923] rounded-xl border border-[#E2E8F0] dark:border-[#2E3B4A] flex items-center justify-between"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
+                    {act.type === 'lesson' ? (
+                      <BookOpen className="w-4 h-4" />
+                    ) : act.type === 'lab' ? (
+                      <FlaskConical className="w-4 h-4" />
+                    ) : act.type === 'quiz' ? (
+                      <GraduationCap className="w-4 h-4" />
+                    ) : (
+                      <Clock className="w-4 h-4" />
+                    )}
+                  </div>
+                  <div>
+                    <span className="text-xs font-semibold text-[#172033] dark:text-[#F1F5F9] block">
+                      {act.title}
+                    </span>
+                    <span className="text-[11px] text-[#64748B] dark:text-[#B8C4D1]">
+                      {new Date(act.timestamp).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })} • {act.type.toUpperCase()}
+                    </span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-1.5 text-xs text-emerald-600 dark:text-emerald-400 font-medium">
+                  <CheckCircle2 className="w-3.5 h-3.5" />
+                  <span>Recorded</span>
+                </div>
               </div>
-            </div>
-            <Link href={`/units/${activeUnit.unitNumber}`}>
-              <Button variant="outline" size="sm">
-                Resume Learning
-              </Button>
-            </Link>
+            ))}
           </div>
         )}
       </section>
