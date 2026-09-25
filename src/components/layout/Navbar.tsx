@@ -49,6 +49,7 @@ export const Navbar: React.FC = () => {
   const navLinks = [
     { href: '/', label: 'Curriculum', icon: <BookOpen className="w-4 h-4" /> },
     { href: '/dashboard', label: 'Dashboard', icon: <LayoutDashboard className="w-4 h-4" /> },
+    { href: '/visualizations', label: 'Visualizations', icon: <BarChart3 className="w-4 h-4" /> },
     { href: '/labs/eda', label: 'Labs', icon: <FlaskConical className="w-4 h-4" /> },
     { href: '/revision', label: 'Revision', icon: <FileText className="w-4 h-4" /> },
     { href: '/tutor', label: 'AI Tutor', icon: <Bot className="w-4 h-4" /> },

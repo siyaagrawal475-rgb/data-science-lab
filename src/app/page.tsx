@@ -101,7 +101,7 @@ export default function HomePage() {
               <Eye className="w-5 h-5" />
             </div>
             <h4 className="text-sm font-bold text-[#0F172A] dark:text-[#F8FAFC]">1. Visualize</h4>
-            <p className="text-xs text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+            <p className="text-xs text-[#334155] dark:text-[#CBD5E1] leading-relaxed">
               Interact with real-time vector coordinate planes, matrix transformations, probability curves, and decision boundaries.
             </p>
           </div>
@@ -111,7 +111,7 @@ export default function HomePage() {
               <Cpu className="w-5 h-5" />
             </div>
             <h4 className="text-sm font-bold text-[#0F172A] dark:text-[#F8FAFC]">2. Experiment</h4>
-            <p className="text-xs text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+            <p className="text-xs text-[#334155] dark:text-[#CBD5E1] leading-relaxed">
               Inject outliers, tune learning rates, adjust classification thresholds, and run Monte Carlo simulations.
             </p>
           </div>
@@ -121,7 +121,7 @@ export default function HomePage() {
               <TableProperties className="w-5 h-5" />
             </div>
             <h4 className="text-sm font-bold text-[#0F172A] dark:text-[#F8FAFC]">3. Analyze</h4>
-            <p className="text-xs text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+            <p className="text-xs text-[#334155] dark:text-[#CBD5E1] leading-relaxed">
               Study side-by-side comparison tables, mathematical proofs, residual diagnostics, and full KaTeX formula sheets.
             </p>
           </div>
@@ -131,7 +131,7 @@ export default function HomePage() {
               <FolderGit2 className="w-5 h-5" />
             </div>
             <h4 className="text-sm font-bold text-[#0F172A] dark:text-[#F8FAFC]">4. Apply</h4>
-            <p className="text-xs text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
+            <p className="text-xs text-[#334155] dark:text-[#CBD5E1] leading-relaxed">
               Solve industrial mini projects in retail sales, recommendation cosine embeddings, A/B testing, and spam detection.
             </p>
           </div>

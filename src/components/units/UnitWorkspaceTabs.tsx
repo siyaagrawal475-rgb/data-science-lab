@@ -54,6 +54,7 @@ interface UnitWorkspaceTabsProps {
   realLifeExamples: RealLifeExample[];
   simulationComponent: React.ReactNode;
   visualizationComponent: React.ReactNode;
+  initialTab?: 'overview' | 'lessons' | 'visualizations' | 'labs' | 'simulations' | 'projects' | 'tables' | 'examples' | 'flashcards' | 'formulas' | 'quiz';
 }
 
 export const UnitWorkspaceTabs: React.FC<UnitWorkspaceTabsProps> = ({
@@ -70,6 +71,7 @@ export const UnitWorkspaceTabs: React.FC<UnitWorkspaceTabsProps> = ({
   realLifeExamples,
   simulationComponent,
   visualizationComponent,
+  initialTab = 'overview',
 }) => {
   const [activeTab, setActiveTab] = useState<
     | 'overview'
@@ -83,7 +85,7 @@ export const UnitWorkspaceTabs: React.FC<UnitWorkspaceTabsProps> = ({
     | 'flashcards'
     | 'formulas'
     | 'quiz'
-  >('overview');
+  >(initialTab);
 
   const tabList = [
     { id: 'overview', label: 'Overview', icon: Layers },

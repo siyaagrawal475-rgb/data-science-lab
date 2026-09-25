@@ -30,6 +30,7 @@ import { UNIT_3_FORMULAS } from '@/data/unit3/formulas';
 import { UNIT_4_FORMULAS } from '@/data/unit4/formulas';
 import { UNIT_5_FORMULAS } from '@/data/unit5/formulas';
 import { UNIT_6_FORMULAS } from '@/data/unit6/formulas';
+import { VISUALIZATION_CATALOG } from '@/app/visualizations/page';
 
 interface SearchItem {
   id: string;
@@ -149,6 +150,19 @@ export const GlobalSearchModal: React.FC<GlobalSearchModalProps> = ({ isOpen, on
     // Mini Projects & Simulations
     items.push(...MINI_PROJECTS);
     items.push(...SIMULATIONS);
+
+    // Visualizations
+    VISUALIZATION_CATALOG.forEach((v) => {
+      items.push({
+        id: `viz-${v.id}`,
+        type: 'lab',
+        title: v.title,
+        subtitle: `${v.category} • ${v.description}`,
+        url: `/visualizations`,
+        unitNumber: v.unitNumber,
+        badge: `Visualization Lab • Unit ${v.unitNumber}`,
+      });
+    });
 
     // Units
     UNITS_DATA.forEach((u) => {

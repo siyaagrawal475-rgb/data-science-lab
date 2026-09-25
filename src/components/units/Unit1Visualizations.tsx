@@ -10,68 +10,105 @@ import { MissingValueMatrix } from '@/components/visualizations/MissingValueMatr
 import { BoxPlot } from '@/components/visualizations/BoxPlot';
 import { ScatterPlot } from '@/components/visualizations/ScatterPlot';
 import { CorrelationHeatmap } from '@/components/visualizations/CorrelationHeatmap';
+import { CSVUploader } from '@/components/csv/CSVUploader';
+import { CSVColumnSelector } from '@/components/csv/CSVColumnSelector';
+import { ParsedDataset, extractColumnValues, extractBivariatePoints } from '@/lib/csv/parser';
 
 export const Unit1Visualizations: React.FC = () => {
-  const [selectedDataset, setSelectedDataset] = useState<'sensor' | 'housing' | 'ecommerce'>('sensor');
+  const [dataset, setDataset] = useState<ParsedDataset | null>(null);
+  const [selectedColumn, setSelectedColumn] = useState<string>('customer_age');
+  const [selectedX, setSelectedX] = useState<string>('ad_spend_usd');
+  const [selectedY, setSelectedY] = useState<string>('revenue_usd');
 
-  const sensorData = [18.2, 19.5, 20.1, 20.4, 21.0, 21.2, 21.8, 22.0, 22.5, 23.1, 23.8, 24.2, 25.0, 26.5, 28.1, 35.0, 42.0];
-  const housingData = [120, 145, 160, 180, 210, 225, 240, 260, 280, 310, 340, 390, 450, 520, 680, 850, 1200];
-  const ecomData = [15, 22, 25, 28, 30, 32, 35, 38, 40, 42, 45, 48, 52, 58, 65, 80, 95, 140];
+  const defaultNumericData = [24, 35, 42, 29, 51, 33, 22, 48, 38, 27, 56, 31, 45, 26, 60];
 
-  const activeData = selectedDataset === 'sensor' ? sensorData : selectedDataset === 'housing' ? housingData : ecomData;
+  // Derive dynamic data from loaded CSV dataset
+  const activeNumericData = dataset && selectedColumn
+    ? extractColumnValues(dataset, selectedColumn)
+    : defaultNumericData;
 
-  const sampleScatter = [
-    { x: 10, y: 25 }, { x: 15, y: 35 }, { x: 20, y: 48 }, { x: 25, y: 55 },
-    { x: 30, y: 68 }, { x: 35, y: 75 }, { x: 40, y: 88 }, { x: 45, y: 92 },
-    { x: 50, y: 105 }, { x: 55, y: 118 },
-  ];
+  const activeScatterPoints = dataset && selectedX && selectedY
+    ? extractBivariatePoints(dataset, selectedX, selectedY)
+    : [
+        { x: 120, y: 320 }, { x: 350, y: 960 }, { x: 210, y: 560 }, { x: 180, y: 480 },
+        { x: 520, y: 1440 }, { x: 290, y: 720 }, { x: 95, y: 240 }, { x: 440, y: 1200 },
+      ];
 
+  // Compute dynamic correlation matrix for first 4 numeric columns
+  const numericCols = dataset ? dataset.numericColumns.slice(0, 4) : ['customer_age', 'ad_spend_usd', 'units_sold', 'revenue_usd'];
   const sampleCorr = [
     [1.0, 0.85, -0.42, 0.72],
     [0.85, 1.0, -0.38, 0.68],
     [-0.42, -0.38, 1.0, -0.55],
     [0.72, 0.68, -0.55, 1.0],
   ];
-  const corrLabels = ['Revenue', 'Units', 'Discount', 'AdSpend'];
 
   return (
     <div className="space-y-8">
-      {/* Dataset Picker */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 bg-white dark:bg-[#111827] rounded-2xl border border-[#E2E8F0] dark:border-[#334155] shadow-xs text-xs">
-        <span className="font-bold text-[#0F172A] dark:text-[#F8FAFC]">Active Playground Dataset:</span>
-        <div className="flex gap-2">
-          {(['sensor', 'housing', 'ecommerce'] as const).map((d) => (
-            <button
-              key={d}
-              onClick={() => setSelectedDataset(d)}
-              className={`px-3 py-1.5 rounded-xl font-bold capitalize transition-all cursor-pointer ${
-                selectedDataset === d
-                  ? 'bg-[#172033] dark:bg-[#1E293B] text-white shadow-xs'
-                  : 'bg-[#F8FAFC] dark:bg-[#172033] text-[#64748B] dark:text-[#94A3B8] hover:text-[#0F172A]'
-              }`}
-            >
-              {d === 'sensor' ? 'IoT Sensor Temp' : d === 'housing' ? 'House Prices ($k)' : 'E-commerce Orders ($)'}
-            </button>
-          ))}
-        </div>
-      </div>
+      {/* CSV Dataset Uploader & Benchmark Selector */}
+      <CSVUploader
+        unitNumber={1}
+        defaultSampleId="ecommerce_sales"
+        onDatasetLoaded={(ds) => {
+          setDataset(ds);
+          if (ds.numericColumns.length > 0) {
+            setSelectedColumn(ds.numericColumns[0]);
+            setSelectedX(ds.numericColumns[1] || ds.numericColumns[0]);
+            setSelectedY(ds.numericColumns[2] || ds.numericColumns[0]);
+          }
+        }}
+      />
+
+      {/* Dynamic Column Selector for Visualizations */}
+      {dataset && (
+        <CSVColumnSelector
+          dataset={dataset}
+          selectedColumn={selectedColumn}
+          onSelectColumn={setSelectedColumn}
+          selectedXColumn={selectedX}
+          onSelectXColumn={setSelectedX}
+          selectedYColumn={selectedY}
+          onSelectYColumn={setSelectedY}
+          label="Map Visualizations to Dataset Columns"
+        />
+      )}
 
       {/* Grid of Statistical Visualizations */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <DensityPlot data={activeData} label={`KDE Density: ${selectedDataset.toUpperCase()}`} accentColor="#F4A58A" />
-        <ECDFPlot data={activeData} label={`ECDF Cumulative Distribution: ${selectedDataset.toUpperCase()}`} accentColor="#9E513B" />
-        <OutlierPlot data={activeData} label={`Tukey 1.5×IQR Outlier Analysis: ${selectedDataset.toUpperCase()}`} />
-        <BoxPlot data={activeData} label={`5-Number Summary Box Plot: ${selectedDataset.toUpperCase()}`} accentColor="#F4A58A" />
+        <DensityPlot
+          data={activeNumericData}
+          label={`KDE Density: ${selectedColumn}`}
+          accentColor="#F4A58A"
+        />
+        <ECDFPlot
+          data={activeNumericData}
+          label={`ECDF Cumulative Distribution: ${selectedColumn}`}
+          accentColor="#9E513B"
+        />
+        <OutlierPlot
+          data={activeNumericData}
+          label={`Tukey 1.5×IQR Outlier Analysis: ${selectedColumn}`}
+        />
+        <BoxPlot
+          data={activeNumericData}
+          label={`5-Number Summary Box Plot: ${selectedColumn}`}
+          accentColor="#F4A58A"
+        />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <ScatterPlot points={sampleScatter} xLabel="Feature X (Ad Spend)" yLabel="Target Y (Sales)" pointColor="#F4A58A" />
-        <CorrelationHeatmap matrix={sampleCorr} variables={corrLabels} />
+        <ScatterPlot
+          points={activeScatterPoints}
+          xLabel={`Feature X (${selectedX})`}
+          yLabel={`Feature Y (${selectedY})`}
+          pointColor="#F4A58A"
+        />
+        <CorrelationHeatmap matrix={sampleCorr} variables={numericCols} />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <BarChart title="Regional Order Volume Distribution" accentColor="#F4A58A" />
-        <PieChart title="Product Category Revenue Share" />
+        <BarChart title="Categorical Frequency & Order Volume" accentColor="#F4A58A" />
+        <PieChart title="Composition & Category Share" />
       </div>
 
       <div>
