@@ -32,15 +32,15 @@ export default function HomePage() {
         <div className="max-w-3xl space-y-6 relative z-10">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F1F5F9] dark:bg-[#1E293B] border border-[#E2E8F0] dark:border-[#334155] text-xs font-bold text-[#172033] dark:text-[#F8FAFC]">
             <Sparkles className="w-3.5 h-3.5 text-amber-500 animate-pulse" />
-            <span>DATA SCIENCE LEARNING LAB</span>
+            <span>DATA SCIENCE · BSH22BS04 · PCCOE CSE AI&amp;ML · 2025–26</span>
           </div>
 
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#172033] dark:text-[#F8FAFC] leading-[1.12]">
-            Learn Data Science by understanding the mathematics, intuition, and experiments behind it.
+            Six units, one comprehensive mathematical &amp; ML learning platform.
           </h1>
 
           <p className="text-base sm:text-lg text-[#475569] dark:text-[#CBD5E1] leading-relaxed font-normal">
-            A comprehensive, rigorous learning environment across 6 curriculum units, 60 interactive lessons, 24 computational labs, real-time mathematical simulations, and applied industry mini projects.
+            Every unit of your Data Science curriculum with 60 interactive lessons, 24 computational labs, 74+ visualization playgrounds, 240+ flashcards, and real-time Python math solvers.
           </p>
 
           <div className="flex flex-wrap items-center gap-3 pt-2">
@@ -142,24 +142,56 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* "From Mathematics to Machine Learning" Curriculum Pathway */}
-      <section id="curriculum" className="space-y-6">
-        <SectionHeader
-          title="From Mathematics to Machine Learning"
-          subtitle="The complete six-unit curriculum journey with distinct pastel identities and specialized computational labs."
-          badge={
-            <span className="p-1 rounded bg-[#F1F5F9] dark:bg-[#1E293B] text-[#0F172A] dark:text-[#F8FAFC]">
-              <Layers className="w-4 h-4" />
-            </span>
-          }
-        />
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {UNITS_DATA.map((unit) => (
-            <div key={unit.id} className="hover-lift">
-              <CourseCard unit={unit} />
+      {/* Dual-Track Curriculum Pathway */}
+      <section id="curriculum" className="space-y-10">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 border-b border-[#F1F5F9] dark:border-[#334155] pb-4">
+          <div>
+            <div className="flex items-center gap-2 mb-1">
+              <span className="p-1 rounded bg-[#F1F5F9] dark:bg-[#1E293B] text-[#172033] dark:text-[#F8FAFC]">
+                <Layers className="w-4 h-4" />
+              </span>
+              <h2 className="text-xl sm:text-2xl font-bold tracking-tight text-[#172033] dark:text-[#F1F5F9]">
+                Structured Six-Unit Curriculum Tracks
+              </h2>
             </div>
-          ))}
+            <p className="text-xs sm:text-sm text-[#475569] dark:text-[#CBD5E1]">
+              Press keys <kbd className="px-1.5 py-0.5 rounded bg-[#F1F5F9] dark:bg-[#1E293B] font-mono border border-[#E2E8F0] dark:border-[#334155] text-[11px]">1</kbd>–<kbd className="px-1.5 py-0.5 rounded bg-[#F1F5F9] dark:bg-[#1E293B] font-mono border border-[#E2E8F0] dark:border-[#334155] text-[11px]">6</kbd> to jump directly to any unit workspace.
+            </p>
+          </div>
+        </div>
+
+        {/* Track 1: Foundations & Math (Units 1, 2, 3) */}
+        <div className="space-y-4">
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#F4A58A]" />
+            <h3 className="text-sm font-bold uppercase tracking-wider text-[#172033] dark:text-[#F1F5F9]">
+              Track 1: Mathematical Foundations &amp; Exploratory Analysis (Units 1–3)
+            </h3>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {UNITS_DATA.slice(0, 3).map((unit) => (
+              <div key={unit.id} className="hover-lift">
+                <CourseCard unit={unit} />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Track 2: Statistical Inference & Core Machine Learning (Units 4, 5, 6) */}
+        <div className="space-y-4 pt-4 border-t border-[#F1F5F9] dark:border-[#334155]">
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#B7A3E3]" />
+            <h3 className="text-sm font-bold uppercase tracking-wider text-[#172033] dark:text-[#F1F5F9]">
+              Track 2: Statistical Foundations &amp; Machine Learning (Units 4–6)
+            </h3>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {UNITS_DATA.slice(3, 6).map((unit) => (
+              <div key={unit.id} className="hover-lift">
+                <CourseCard unit={unit} />
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

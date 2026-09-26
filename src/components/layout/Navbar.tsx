@@ -140,11 +140,11 @@ export const Navbar: React.FC = () => {
 
             {/* Right: Search, Actions, Profile & Theme Toggle */}
             <div className="hidden md:flex items-center gap-2.5">
-              <VisitorCounter className="hidden 2xl:inline-flex" />
+              <VisitorCounter className="hidden xl:inline-flex" />
 
               <button
                 onClick={() => setIsSearchOpen(true)}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[#E2E8F0] dark:border-[#2E3B4A] bg-[#F8FAFC] dark:bg-[#101923] text-xs text-[#64748B] dark:text-[#CBD5E1] hover:border-[#CBD5E1] dark:hover:border-[#3D4F63] hover:text-[#0F172A] dark:hover:text-white transition-all cursor-pointer shadow-2xs"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[#E2E8F0] dark:border-[#2E3B4A] bg-[#F8FAFC] dark:bg-[#101923] text-xs text-[#64748B] dark:text-[#CBD5E1] hover:border-[#CBD5E1] dark:hover:border-[#3D4F63] hover:text-[#172033] dark:hover:text-white transition-all cursor-pointer shadow-2xs"
                 title="Search topics, lessons, labs (Ctrl+K)"
               >
                 <Search className="w-3.5 h-3.5 text-[#94A3B8] dark:text-[#91B9E8]" />
