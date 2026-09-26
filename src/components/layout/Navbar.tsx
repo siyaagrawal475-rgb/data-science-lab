@@ -12,13 +12,11 @@ import {
   LogIn,
   Menu,
   X,
-  ChevronDown,
   Search,
   Bot,
   FileText,
   User,
 } from 'lucide-react';
-import { UNITS_DATA } from '@/lib/constants';
 import { useAuth } from '@/context/AuthContext';
 import { Button } from '@/components/ui/Button';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
@@ -30,7 +28,6 @@ import { MobileNavbar } from './MobileNavbar';
 export const Navbar: React.FC = () => {
   const pathname = usePathname();
   const { user } = useAuth();
-  const [isUnitsOpen, setIsUnitsOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
 
@@ -97,44 +94,6 @@ export const Navbar: React.FC = () => {
                     </Link>
                   );
                 })}
-
-                {/* Units Quick Switcher Dropdown */}
-                <div className="relative">
-                  <button
-                    onClick={() => setIsUnitsOpen(!isUnitsOpen)}
-                    onBlur={() => setTimeout(() => setIsUnitsOpen(false), 200)}
-                    aria-expanded={isUnitsOpen}
-                    aria-haspopup="true"
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium text-[#64748B] dark:text-[#B8C4D1] hover:text-[#172033] dark:hover:text-[#F1F5F9] hover:bg-[#F8FAFC] dark:hover:bg-[#1B2735] transition-colors cursor-pointer"
-                  >
-                    <span>Units</span>
-                    <ChevronDown className={cn('w-3.5 h-3.5 transition-transform', isUnitsOpen && 'rotate-180')} />
-                  </button>
-
-                  {isUnitsOpen && (
-                    <div className="absolute left-0 mt-2 w-72 bg-white dark:bg-[#151F2B] rounded-xl shadow-lg border border-[#E2E8F0] dark:border-[#2E3B4A] py-2 z-50 animate-in fade-in slide-in-from-top-1 duration-150">
-                      <div className="px-3 py-1.5 text-[11px] font-bold text-[#94A3B8] dark:text-[#7F8B99] uppercase tracking-wider border-b border-[#F1F5F9] dark:border-[#2E3B4A]">
-                        All 6 Units
-                      </div>
-                      <div className="max-h-80 overflow-y-auto py-1">
-                        {UNITS_DATA.map((unit) => (
-                          <Link
-                            key={unit.id}
-                            href={`/units/${unit.unitNumber}`}
-                            className="flex items-center gap-2.5 px-3 py-2 text-xs text-[#334155] dark:text-[#B8C4D1] hover:bg-[#F8FAFC] dark:hover:bg-[#1B2735] hover:text-[#172033] dark:hover:text-[#F1F5F9] transition-colors"
-                          >
-                            <span
-                              className="w-2 h-2 rounded-full shrink-0"
-                              style={{ backgroundColor: unit.accentColor }}
-                            />
-                            <span className="font-semibold shrink-0">Unit {unit.unitNumber}:</span>
-                            <span className="truncate">{unit.shortTitle}</span>
-                          </Link>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
               </nav>
             </div>
 
