@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { UnitBadge } from '@/components/ui/UnitBadge';
+import { UNITS_DATA } from '@/lib/constants';
 import { UnitId } from '@/types';
 
 interface VisualizationCardInfo {
@@ -332,73 +333,92 @@ export default function VisualizationsPage() {
             >
               All Units ({VISUALIZATION_CATALOG.length})
             </button>
-            {[1, 2, 3, 4, 5, 6].map((u) => (
-              <button
-                key={u}
-                onClick={() => setSelectedUnit(u)}
-                className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap ${
-                  selectedUnit === u
-                    ? 'bg-[#172033] dark:bg-[#1E293B] text-white shadow-xs'
-                    : 'bg-[#F8FAFC] dark:bg-[#1E293B] text-[#64748B] dark:text-[#94A3B8] hover:text-[#0F172A]'
-                }`}
-              >
-                Unit {u}
-              </button>
-            ))}
+            {[1, 2, 3, 4, 5, 6].map((uNum) => {
+              const u = UNITS_DATA.find((unit) => unit.unitNumber === uNum);
+              const isSelected = selectedUnit === uNum;
+              return (
+                <button
+                  key={uNum}
+                  onClick={() => setSelectedUnit(uNum)}
+                  style={
+                    isSelected && u
+                      ? {
+                          backgroundColor: u.colorTokens.soft,
+                          color: u.colorTokens.text,
+                          borderColor: u.colorTokens.border,
+                        }
+                      : undefined
+                  }
+                  className={`px-3 py-1.5 text-xs font-bold rounded-xl transition-all cursor-pointer whitespace-nowrap border ${
+                    isSelected
+                      ? 'shadow-xs'
+                      : 'border-transparent bg-[#F8FAFC] dark:bg-[#1E293B] text-[#64748B] dark:text-[#94A3B8] hover:text-[#172033]'
+                  }`}
+                >
+                  Unit {uNum}
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
 
       {/* Grid of Visualization Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredVisualizations.map((item) => (
-          <div
-            key={item.id}
-            className="p-6 bg-white dark:bg-[#111827] rounded-2xl border border-[#E2E8F0] dark:border-[#334155] shadow-xs hover-lift flex flex-col justify-between space-y-4 transition-colors"
-          >
-            <div className="space-y-3">
-              <div className="flex items-center justify-between gap-2">
-                <UnitBadge unitId={item.unitId} unitNumber={item.unitNumber} size="sm" />
-                <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
-                  {item.difficulty}
-                </span>
-              </div>
-
-              <div>
-                <span className="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider block mb-1">
-                  {item.category}
-                </span>
-                <h3 className="text-base font-bold text-[#0F172A] dark:text-[#F8FAFC]">
-                  {item.title}
-                </h3>
-              </div>
-
-              <p className="text-xs text-[#475569] dark:text-[#CBD5E1] leading-relaxed">
-                {item.description}
-              </p>
-
-              <div className="flex items-center gap-3 pt-2 text-[11px] text-[#64748B] dark:text-[#94A3B8]">
-                {item.interactive && (
-                  <span className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-semibold">
-                    <span>●</span> Interactive
+        {filteredVisualizations.map((item) => {
+          const u = UNITS_DATA.find((unit) => unit.unitNumber === item.unitNumber);
+          return (
+            <div
+              key={item.id}
+              className="p-6 bg-white dark:bg-[#111827] rounded-2xl border border-[#E2E8F0] dark:border-[#334155] shadow-xs hover-lift flex flex-col justify-between space-y-4 transition-colors"
+            >
+              <div className="space-y-3">
+                <div className="flex items-center justify-between gap-2">
+                  <UnitBadge unitId={item.unitId} unitNumber={item.unitNumber} size="sm" />
+                  <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                    {item.difficulty}
                   </span>
-                )}
-                {item.csvSupported && (
-                  <span className="flex items-center gap-1 text-blue-600 dark:text-blue-400 font-semibold">
-                    <FileSpreadsheet className="w-3.5 h-3.5" /> CSV Supported
+                </div>
+
+                <div>
+                  <span
+                    className="text-[10px] font-bold uppercase tracking-wider block mb-1"
+                    style={{ color: u?.colorTokens.primary || '#91B9E8' }}
+                  >
+                    {item.category}
                   </span>
-                )}
+                  <h3 className="text-base font-bold text-[#172033] dark:text-[#F8FAFC]">
+                    {item.title}
+                  </h3>
+                </div>
+
+                <p className="text-xs text-[#475569] dark:text-[#CBD5E1] leading-relaxed">
+                  {item.description}
+                </p>
+
+                <div className="flex items-center gap-3 pt-2 text-[11px] text-[#64748B] dark:text-[#94A3B8]">
+                  {item.interactive && (
+                    <span className="flex items-center gap-1 text-emerald-600 dark:text-emerald-400 font-semibold">
+                      <span>●</span> Interactive
+                    </span>
+                  )}
+                  {item.csvSupported && (
+                    <span className="flex items-center gap-1 font-semibold" style={{ color: u?.colorTokens.text || '#416B9E' }}>
+                      <FileSpreadsheet className="w-3.5 h-3.5" /> CSV Supported
+                    </span>
+                  )}
+                </div>
               </div>
+
+              <Link href={item.route} className="block pt-2">
+                <button className="w-full py-2 px-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 hover:bg-slate-100 dark:hover:bg-slate-800 text-[#172033] dark:text-[#F8FAFC] font-bold text-xs border border-[#E2E8F0] dark:border-[#334155] flex items-center justify-center gap-1.5 transition-colors cursor-pointer">
+                  <span>Launch in Unit {item.unitNumber}</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </Link>
             </div>
-
-            <Link href={item.route} className="block pt-2">
-              <button className="w-full py-2 px-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 hover:bg-slate-100 dark:hover:bg-slate-800 text-[#0F172A] dark:text-[#F8FAFC] font-bold text-xs border border-[#E2E8F0] dark:border-[#334155] flex items-center justify-center gap-1.5 transition-colors cursor-pointer">
-                <span>Launch in Unit {item.unitNumber}</span>
-                <ArrowRight className="w-3.5 h-3.5" />
-              </button>
-            </Link>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

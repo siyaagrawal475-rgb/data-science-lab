@@ -26,16 +26,16 @@ export default function HomePage() {
       {/* Editorial Hero Section */}
       <section className="relative rounded-3xl bg-white dark:bg-[#111827] border border-[#E2E8F0] dark:border-[#334155] p-6 sm:p-10 lg:p-14 shadow-xs overflow-hidden transition-colors">
         {/* Subtle geometric background accents */}
-        <div className="absolute -right-16 -top-16 w-96 h-96 rounded-full bg-blue-100/40 dark:bg-blue-900/10 blur-3xl pointer-events-none" />
-        <div className="absolute -left-16 -bottom-16 w-96 h-96 rounded-full bg-amber-100/30 dark:bg-amber-900/10 blur-3xl pointer-events-none" />
+        <div className="absolute -right-16 -top-16 w-96 h-96 rounded-full bg-[#FCE5DC]/60 dark:bg-blue-900/10 blur-3xl pointer-events-none" />
+        <div className="absolute -left-16 -bottom-16 w-96 h-96 rounded-full bg-[#FAF2D8]/50 dark:bg-amber-900/10 blur-3xl pointer-events-none" />
 
         <div className="max-w-3xl space-y-6 relative z-10">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800 text-xs font-bold text-blue-700 dark:text-blue-300">
-            <Sparkles className="w-3.5 h-3.5 text-blue-500 animate-pulse" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#F1F5F9] dark:bg-[#1E293B] border border-[#E2E8F0] dark:border-[#334155] text-xs font-bold text-[#172033] dark:text-[#F8FAFC]">
+            <Sparkles className="w-3.5 h-3.5 text-amber-500 animate-pulse" />
             <span>DATA SCIENCE LEARNING LAB</span>
           </div>
 
-          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#0F172A] dark:text-[#F8FAFC] leading-[1.12]">
+          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-[#172033] dark:text-[#F8FAFC] leading-[1.12]">
             Learn Data Science by understanding the mathematics, intuition, and experiments behind it.
           </h1>
 
@@ -57,7 +57,7 @@ export default function HomePage() {
               <Button
                 variant="outline"
                 size="lg"
-                leftIcon={<FlaskConical className="w-4 h-4 text-[#64748B] dark:text-[#94A3B8]" />}
+                leftIcon={<FlaskConical className="w-4 h-4 text-[#9E513B] dark:text-[#FFC4B3]" />}
               >
                 Explore Unit 1 EDA
               </Button>
@@ -66,7 +66,7 @@ export default function HomePage() {
               <Button
                 variant="outline"
                 size="lg"
-                leftIcon={<BrainCircuit className="w-4 h-4 text-purple-600 dark:text-purple-400" />}
+                leftIcon={<BrainCircuit className="w-4 h-4 text-[#68539A] dark:text-[#DFD3F8]" />}
               >
                 AI Math Tutor
               </Button>
@@ -89,49 +89,53 @@ export default function HomePage() {
           title="Learn Through Experiments"
           subtitle="Our 4-pillar pedagogical framework transforms abstract equations into intuitive working knowledge."
           badge={
-            <span className="p-1 rounded bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300">
+            <span className="p-1 rounded bg-[#FAF2D8] dark:bg-amber-950/60 text-[#806A28] dark:text-[#FBE6A6] border border-[#EBD99A] dark:border-amber-900">
               <Activity className="w-4 h-4" />
             </span>
           }
         />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          {/* Card 1: Visualize - Peach Accent */}
           <div className="p-5 bg-white dark:bg-[#111827] rounded-2xl border border-[#E2E8F0] dark:border-[#334155] shadow-xs space-y-2.5 hover-lift">
-            <div className="w-10 h-10 rounded-xl bg-orange-100 dark:bg-orange-950/40 text-orange-600 dark:text-orange-400 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-[#FCE5DC] dark:bg-[#F4A58A]/20 text-[#9E513B] dark:text-[#FFC4B3] border border-[#EFC0B0] dark:border-[#F4A58A]/30 flex items-center justify-center">
               <Eye className="w-5 h-5" />
             </div>
-            <h4 className="text-sm font-bold text-[#0F172A] dark:text-[#F8FAFC]">1. Visualize</h4>
-            <p className="text-xs text-[#334155] dark:text-[#CBD5E1] leading-relaxed">
+            <h4 className="text-sm font-bold text-[#172033] dark:text-[#F8FAFC]">1. Visualize</h4>
+            <p className="text-xs text-[#475569] dark:text-[#CBD5E1] leading-relaxed">
               Interact with real-time vector coordinate planes, matrix transformations, probability curves, and decision boundaries.
             </p>
           </div>
 
+          {/* Card 2: Experiment - Lavender Accent */}
           <div className="p-5 bg-white dark:bg-[#111827] rounded-2xl border border-[#E2E8F0] dark:border-[#334155] shadow-xs space-y-2.5 hover-lift">
-            <div className="w-10 h-10 rounded-xl bg-purple-100 dark:bg-purple-950/40 text-purple-600 dark:text-purple-400 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-[#EEE9F8] dark:bg-[#B7A3E3]/20 text-[#68539A] dark:text-[#DFD3F8] border border-[#CFC2EA] dark:border-[#B7A3E3]/30 flex items-center justify-center">
               <Cpu className="w-5 h-5" />
             </div>
-            <h4 className="text-sm font-bold text-[#0F172A] dark:text-[#F8FAFC]">2. Experiment</h4>
-            <p className="text-xs text-[#334155] dark:text-[#CBD5E1] leading-relaxed">
+            <h4 className="text-sm font-bold text-[#172033] dark:text-[#F8FAFC]">2. Experiment</h4>
+            <p className="text-xs text-[#475569] dark:text-[#CBD5E1] leading-relaxed">
               Inject outliers, tune learning rates, adjust classification thresholds, and run Monte Carlo simulations.
             </p>
           </div>
 
+          {/* Card 3: Analyze - Sage Accent */}
           <div className="p-5 bg-white dark:bg-[#111827] rounded-2xl border border-[#E2E8F0] dark:border-[#334155] shadow-xs space-y-2.5 hover-lift">
-            <div className="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-[#E5F3E9] dark:bg-[#8FC7A3]/20 text-[#3F7951] dark:text-[#BCE8CC] border border-[#B8DCC3] dark:border-[#8FC7A3]/30 flex items-center justify-center">
               <TableProperties className="w-5 h-5" />
             </div>
-            <h4 className="text-sm font-bold text-[#0F172A] dark:text-[#F8FAFC]">3. Analyze</h4>
-            <p className="text-xs text-[#334155] dark:text-[#CBD5E1] leading-relaxed">
+            <h4 className="text-sm font-bold text-[#172033] dark:text-[#F8FAFC]">3. Analyze</h4>
+            <p className="text-xs text-[#475569] dark:text-[#CBD5E1] leading-relaxed">
               Study side-by-side comparison tables, mathematical proofs, residual diagnostics, and full KaTeX formula sheets.
             </p>
           </div>
 
+          {/* Card 4: Apply - Dusty Rose Accent */}
           <div className="p-5 bg-white dark:bg-[#111827] rounded-2xl border border-[#E2E8F0] dark:border-[#334155] shadow-xs space-y-2.5 hover-lift">
-            <div className="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-[#F6E5EB] dark:bg-[#D99AAF]/20 text-[#8A4E63] dark:text-[#FACCDA] border border-[#E5BBC9] dark:border-[#D99AAF]/30 flex items-center justify-center">
               <FolderGit2 className="w-5 h-5" />
             </div>
-            <h4 className="text-sm font-bold text-[#0F172A] dark:text-[#F8FAFC]">4. Apply</h4>
-            <p className="text-xs text-[#334155] dark:text-[#CBD5E1] leading-relaxed">
+            <h4 className="text-sm font-bold text-[#172033] dark:text-[#F8FAFC]">4. Apply</h4>
+            <p className="text-xs text-[#475569] dark:text-[#CBD5E1] leading-relaxed">
               Solve industrial mini projects in retail sales, recommendation cosine embeddings, A/B testing, and spam detection.
             </p>
           </div>
@@ -165,7 +169,7 @@ export default function HomePage() {
           <div className="w-10 h-10 rounded-xl bg-[#FCE5DC] dark:bg-[#F4A58A]/20 text-[#9E513B] dark:text-[#FFC4B3] flex items-center justify-center">
             <BarChart3 className="w-5 h-5" />
           </div>
-          <h3 className="font-bold text-base text-[#0F172A] dark:text-[#F8FAFC]">
+          <h3 className="font-bold text-base text-[#172033] dark:text-[#F8FAFC]">
             Interactive Visualizations
           </h3>
           <p className="text-xs text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
@@ -177,7 +181,7 @@ export default function HomePage() {
           <div className="w-10 h-10 rounded-xl bg-[#E5EFFB] dark:bg-[#91B9E8]/20 text-[#416B9E] dark:text-[#C6DEFA] flex items-center justify-center">
             <FlaskConical className="w-5 h-5" />
           </div>
-          <h3 className="font-bold text-base text-[#0F172A] dark:text-[#F8FAFC]">
+          <h3 className="font-bold text-base text-[#172033] dark:text-[#F8FAFC]">
             Applied Computational Labs
           </h3>
           <p className="text-xs text-[#64748B] dark:text-[#94A3B8] leading-relaxed">
@@ -189,7 +193,7 @@ export default function HomePage() {
           <div className="w-10 h-10 rounded-xl bg-[#EEE9F8] dark:bg-[#B7A3E3]/20 text-[#68539A] dark:text-[#DFD3F8] flex items-center justify-center">
             <Sigma className="w-5 h-5" />
           </div>
-          <h3 className="font-bold text-base text-[#0F172A] dark:text-[#F8FAFC]">
+          <h3 className="font-bold text-base text-[#172033] dark:text-[#F8FAFC]">
             Zero-Compromise Mathematical Rigor
           </h3>
           <p className="text-xs text-[#64748B] dark:text-[#94A3B8] leading-relaxed">

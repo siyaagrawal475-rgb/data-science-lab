@@ -10,6 +10,7 @@ import {
 import katex from 'katex';
 import { PageHeader } from '@/components/ui/PageHeader';
 import { Button } from '@/components/ui/Button';
+import { UNITS_DATA } from '@/lib/constants';
 
 interface ChatMessage {
   id: string;
@@ -221,19 +222,32 @@ export default function TutorPage() {
           >
             All Units
           </button>
-          {[1, 2, 3, 4, 5, 6].map((num) => (
-            <button
-              key={num}
-              onClick={() => setSelectedUnit(num)}
-              className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer ${
-                selectedUnit === num
-                  ? 'bg-[#172033] dark:bg-[#202D3B] text-white shadow-xs'
-                  : 'text-[#64748B] dark:text-[#B8C4D1] hover:text-[#172033] dark:hover:text-white'
-              }`}
-            >
-              Unit {num}
-            </button>
-          ))}
+          {[1, 2, 3, 4, 5, 6].map((num) => {
+            const u = UNITS_DATA.find((unit) => unit.unitNumber === num);
+            const isSelected = selectedUnit === num;
+            return (
+              <button
+                key={num}
+                onClick={() => setSelectedUnit(num)}
+                style={
+                  isSelected && u
+                    ? {
+                        backgroundColor: u.colorTokens.soft,
+                        color: u.colorTokens.text,
+                        borderColor: u.colorTokens.border,
+                      }
+                    : undefined
+                }
+                className={`px-2.5 py-1 rounded-lg text-xs font-bold transition-all cursor-pointer border ${
+                  isSelected
+                    ? 'shadow-xs'
+                    : 'border-transparent text-[#64748B] dark:text-[#B8C4D1] hover:text-[#172033] dark:hover:text-white'
+                }`}
+              >
+                Unit {num}
+              </button>
+            );
+          })}
         </div>
       </div>
 

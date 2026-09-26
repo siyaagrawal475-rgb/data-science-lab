@@ -124,17 +124,17 @@ export default function DashboardPage() {
             className="p-5 rounded-2xl bg-white dark:bg-[#151F2B] border border-[#E2E8F0] dark:border-[#2E3B4A] shadow-xs hover-lift flex flex-col justify-between group transition-colors"
           >
             <div className="space-y-2">
-              <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-[#FAF2D8] dark:bg-[#E8C878]/20 text-[#806A28] dark:text-[#FBE6A6] border border-[#EBD99A] dark:border-[#E8C878]/30 flex items-center justify-center">
                 <FileSpreadsheet className="w-5 h-5" />
               </div>
-              <h4 className="text-sm font-bold text-[#172033] dark:text-[#F1F5F9] group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+              <h4 className="text-sm font-bold text-[#172033] dark:text-[#F1F5F9] group-hover:text-[#806A28] dark:group-hover:text-[#FBE6A6] transition-colors">
                 Revision & Formula Center
               </h4>
               <p className="text-xs text-[#64748B] dark:text-[#B8C4D1] leading-relaxed">
                 Formulas with LaTeX copy, key equations, common pitfalls, and print-ready summary sheets.
               </p>
             </div>
-            <div className="pt-4 flex items-center text-xs font-semibold text-blue-600 dark:text-blue-400">
+            <div className="pt-4 flex items-center text-xs font-semibold text-[#806A28] dark:text-[#FBE6A6]">
               <span>Open Quick Revision</span>
               <ArrowRight className="w-3.5 h-3.5 ml-1 transition-transform group-hover:translate-x-1" />
             </div>
@@ -145,17 +145,17 @@ export default function DashboardPage() {
             className="p-5 rounded-2xl bg-white dark:bg-[#151F2B] border border-[#E2E8F0] dark:border-[#2E3B4A] shadow-xs hover-lift flex flex-col justify-between group transition-colors"
           >
             <div className="space-y-2">
-              <div className="w-10 h-10 rounded-xl bg-purple-50 dark:bg-purple-950/40 text-purple-600 dark:text-purple-400 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-xl bg-[#EEE9F8] dark:bg-[#B7A3E3]/20 text-[#68539A] dark:text-[#DFD3F8] border border-[#CFC2EA] dark:border-[#B7A3E3]/30 flex items-center justify-center">
                 <BrainCircuit className="w-5 h-5" />
               </div>
-              <h4 className="text-sm font-bold text-[#172033] dark:text-[#F1F5F9] group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+              <h4 className="text-sm font-bold text-[#172033] dark:text-[#F1F5F9] group-hover:text-[#68539A] dark:group-hover:text-[#DFD3F8] transition-colors">
                 Local AI Tutor & Solver
               </h4>
               <p className="text-xs text-[#64748B] dark:text-[#B8C4D1] leading-relaxed">
                 Deterministic step-by-step math solver, conceptual breakdown, and code generation across Units 1–6.
               </p>
             </div>
-            <div className="pt-4 flex items-center text-xs font-semibold text-purple-600 dark:text-purple-400">
+            <div className="pt-4 flex items-center text-xs font-semibold text-[#68539A] dark:text-[#DFD3F8]">
               <span>Ask AI Tutor</span>
               <ArrowRight className="w-3.5 h-3.5 ml-1 transition-transform group-hover:translate-x-1" />
             </div>
@@ -279,8 +279,8 @@ export default function DashboardPage() {
             title="Recent Learning Activity"
             subtitle="Real logged actions from your study sessions."
           />
-          <Link href="/profile" className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1">
-            <User className="w-3.5 h-3.5" />
+          <Link href="/profile" className="text-xs font-semibold text-[#475569] dark:text-[#CBD5E1] hover:text-[#172033] dark:hover:text-white hover:underline flex items-center gap-1">
+            <User className="w-3.5 h-3.5 text-[#91B9E8]" />
             Scholar Profile
           </Link>
         </div>
@@ -288,7 +288,7 @@ export default function DashboardPage() {
         {recentActivities.length === 0 ? (
           <div className="p-8 text-center bg-[#F8FAFC] dark:bg-[#101923] rounded-xl border border-dashed border-[#CBD5E1] dark:border-[#2E3B4A] space-y-3">
             <div className="inline-flex p-3 rounded-full bg-white dark:bg-[#1B2735] border border-[#E2E8F0] dark:border-[#2E3B4A] text-[#64748B] dark:text-[#B8C4D1]">
-              <Sparkles className="w-5 h-5 text-[#91B9E8]" />
+              <Sparkles className="w-5 h-5 text-amber-500" />
             </div>
             <h4 className="text-sm font-bold text-[#172033] dark:text-[#F1F5F9]">
               Start your first lesson to begin building your progress
@@ -312,7 +312,15 @@ export default function DashboardPage() {
                 className="p-3.5 bg-[#F8FAFC] dark:bg-[#101923] rounded-xl border border-[#E2E8F0] dark:border-[#2E3B4A] flex items-center justify-between"
               >
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
+                  <div className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 border ${
+                    act.type === 'lesson'
+                      ? 'bg-[#FCE5DC] text-[#9E513B] border-[#EFC0B0]'
+                      : act.type === 'lab'
+                      ? 'bg-[#E5F3E9] text-[#3F7951] border-[#B8DCC3]'
+                      : act.type === 'quiz'
+                      ? 'bg-[#FAF2D8] text-[#806A28] border-[#EBD99A]'
+                      : 'bg-[#EEE9F8] text-[#68539A] border-[#CFC2EA]'
+                  }`}>
                     {act.type === 'lesson' ? (
                       <BookOpen className="w-4 h-4" />
                     ) : act.type === 'lab' ? (

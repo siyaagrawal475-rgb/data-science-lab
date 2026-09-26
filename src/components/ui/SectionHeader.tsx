@@ -25,7 +25,7 @@ export const SectionHeader: React.FC<SectionHeaderProps> = ({
             {title}
           </h2>
         </div>
-        {subtitle && <p className="text-xs sm:text-sm text-[#334155] dark:text-[#CBD5E1] font-normal leading-relaxed">{subtitle}</p>}
+        {subtitle && <p className="text-xs sm:text-sm text-[#475569] dark:text-[#CBD5E1] font-normal leading-relaxed">{subtitle}</p>}
       </div>
 
       {action && <div className="shrink-0 pt-1 sm:pt-0">{action}</div>}
