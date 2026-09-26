@@ -16,7 +16,7 @@ export const THEME_STORAGE_KEY = 'dsl_theme';
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setThemeState] = useState<ThemeMode>(() => {
-    if (typeof window === 'undefined') return 'system';
+    if (typeof window === 'undefined') return 'light';
     try {
       const stored = localStorage.getItem(THEME_STORAGE_KEY) as ThemeMode | null;
       if (stored && (stored === 'light' || stored === 'dark' || stored === 'system')) {
@@ -25,7 +25,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     } catch {
       // Ignore localStorage access errors
     }
-    return 'system';
+    return 'light';
   });
 
   const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('light');
