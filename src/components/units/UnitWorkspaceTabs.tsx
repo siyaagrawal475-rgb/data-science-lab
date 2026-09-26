@@ -163,7 +163,14 @@ export const UnitWorkspaceTabs: React.FC<UnitWorkspaceTabsProps> = ({
                   title={`Unit ${unitNumber} Sequential Learning Path`}
                   subtitle="Master foundational concepts through structured step-by-step educational modules."
                   badge={
-                    <span className="p-1.5 rounded-lg bg-blue-100 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300">
+                    <span
+                      className="p-1.5 rounded-lg border"
+                      style={{
+                        backgroundColor: unit.colorTokens.soft,
+                        color: unit.colorTokens.text,
+                        borderColor: unit.colorTokens.border,
+                      }}
+                    >
                       <BookOpen className="w-4 h-4" />
                     </span>
                   }
@@ -182,7 +189,14 @@ export const UnitWorkspaceTabs: React.FC<UnitWorkspaceTabsProps> = ({
                   title="Applied Computational Labs"
                   subtitle="Hands-on interactive experiments and live data transformation workspaces."
                   badge={
-                    <span className="p-1.5 rounded-lg bg-purple-100 dark:bg-purple-950/60 text-purple-700 dark:text-purple-300">
+                    <span
+                      className="p-1.5 rounded-lg border"
+                      style={{
+                        backgroundColor: unit.colorTokens.soft,
+                        color: unit.colorTokens.text,
+                        borderColor: unit.colorTokens.border,
+                      }}
+                    >
                       <FlaskConical className="w-4 h-4" />
                     </span>
                   }
@@ -196,7 +210,14 @@ export const UnitWorkspaceTabs: React.FC<UnitWorkspaceTabsProps> = ({
                     >
                       <div className="space-y-2">
                         <div className="flex items-center justify-between text-xs">
-                          <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300">
+                          <span
+                            className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full border"
+                            style={{
+                              backgroundColor: unit.colorTokens.soft,
+                              color: unit.colorTokens.text,
+                              borderColor: unit.colorTokens.border,
+                            }}
+                          >
                             {lab.difficulty}
                           </span>
                           <span className="text-[11px] text-[#64748B] dark:text-[#94A3B8] flex items-center gap-1 font-mono">
@@ -235,10 +256,17 @@ export const UnitWorkspaceTabs: React.FC<UnitWorkspaceTabsProps> = ({
               <div className="p-5 bg-white dark:bg-[#111827] rounded-2xl border border-[#E2E8F0] dark:border-[#334155] shadow-xs space-y-3">
                 <div className="flex items-center justify-between border-b border-[#F1F5F9] dark:border-[#334155] pb-2.5">
                   <h4 className="text-xs font-bold text-[#0F172A] dark:text-[#F8FAFC] flex items-center gap-1.5">
-                    <FolderGit2 className="w-4 h-4 text-blue-600 dark:text-blue-400" />
+                    <FolderGit2 className="w-4 h-4" style={{ color: unit.colorTokens.primary }} />
                     <span>Unit {unitNumber} Mini Project</span>
                   </h4>
-                  <span className="text-[10px] font-bold text-blue-600 bg-blue-50 dark:bg-blue-950/60 px-2 py-0.5 rounded-full">
+                  <span
+                    className="text-[10px] font-bold px-2 py-0.5 rounded-full border"
+                    style={{
+                      backgroundColor: unit.colorTokens.soft,
+                      color: unit.colorTokens.text,
+                      borderColor: unit.colorTokens.border,
+                    }}
+                  >
                     Hands-On
                   </span>
                 </div>
@@ -250,7 +278,12 @@ export const UnitWorkspaceTabs: React.FC<UnitWorkspaceTabsProps> = ({
                 </p>
                 <button
                   onClick={() => setActiveTab('projects')}
-                  className="w-full py-2 px-3 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 font-bold text-xs border border-blue-200 dark:border-blue-900 flex items-center justify-center gap-1 cursor-pointer"
+                  className="w-full py-2 px-3 rounded-xl font-bold text-xs border flex items-center justify-center gap-1 cursor-pointer transition-opacity hover:opacity-90"
+                  style={{
+                    backgroundColor: unit.colorTokens.soft,
+                    color: unit.colorTokens.text,
+                    borderColor: unit.colorTokens.border,
+                  }}
                 >
                   <span>Open Mini Project</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -261,10 +294,17 @@ export const UnitWorkspaceTabs: React.FC<UnitWorkspaceTabsProps> = ({
               <div className="p-5 bg-white dark:bg-[#111827] rounded-2xl border border-[#E2E8F0] dark:border-[#334155] shadow-xs space-y-3">
                 <div className="flex items-center justify-between border-b border-[#F1F5F9] dark:border-[#334155] pb-2.5">
                   <h4 className="text-xs font-bold text-[#0F172A] dark:text-[#F8FAFC] flex items-center gap-1.5">
-                    <Cpu className="w-4 h-4 text-purple-600 dark:text-purple-400" />
+                    <Cpu className="w-4 h-4" style={{ color: unit.colorTokens.primary }} />
                     <span>Live Simulation Lab</span>
                   </h4>
-                  <span className="text-[10px] font-bold text-purple-600 bg-purple-50 dark:bg-purple-950/60 px-2 py-0.5 rounded-full">
+                  <span
+                    className="text-[10px] font-bold px-2 py-0.5 rounded-full border"
+                    style={{
+                      backgroundColor: unit.colorTokens.soft,
+                      color: unit.colorTokens.text,
+                      borderColor: unit.colorTokens.border,
+                    }}
+                  >
                     Interactive
                   </span>
                 </div>
@@ -273,7 +313,12 @@ export const UnitWorkspaceTabs: React.FC<UnitWorkspaceTabsProps> = ({
                 </p>
                 <button
                   onClick={() => setActiveTab('simulations')}
-                  className="w-full py-2 px-3 rounded-xl bg-purple-50 dark:bg-purple-950/40 text-purple-700 dark:text-purple-300 font-bold text-xs border border-purple-200 dark:border-purple-900 flex items-center justify-center gap-1 cursor-pointer"
+                  className="w-full py-2 px-3 rounded-xl font-bold text-xs border flex items-center justify-center gap-1 cursor-pointer transition-opacity hover:opacity-90"
+                  style={{
+                    backgroundColor: unit.colorTokens.soft,
+                    color: unit.colorTokens.text,
+                    borderColor: unit.colorTokens.border,
+                  }}
                 >
                   <span>Run Simulator</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -284,7 +329,7 @@ export const UnitWorkspaceTabs: React.FC<UnitWorkspaceTabsProps> = ({
               <div className="p-5 bg-white dark:bg-[#111827] rounded-2xl border border-[#E2E8F0] dark:border-[#334155] shadow-xs space-y-3">
                 <div className="flex items-center justify-between border-b border-[#F1F5F9] dark:border-[#334155] pb-2.5">
                   <h4 className="text-xs font-bold text-[#0F172A] dark:text-[#F8FAFC] flex items-center gap-1.5">
-                    <Layers className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                    <Layers className="w-4 h-4" style={{ color: unit.colorTokens.primary }} />
                     <span>Concept Flashcards</span>
                   </h4>
                   <span className="text-[10px] text-[#64748B] dark:text-[#94A3B8]">{flashcards.length} Cards</span>
@@ -338,7 +383,14 @@ export const UnitWorkspaceTabs: React.FC<UnitWorkspaceTabsProps> = ({
                 className="p-6 bg-white dark:bg-[#111827] rounded-2xl border border-[#E2E8F0] dark:border-[#334155] shadow-xs space-y-4 hover-lift"
               >
                 <div className="flex items-center justify-between text-xs">
-                  <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-900">
+                  <span
+                    className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full border"
+                    style={{
+                      backgroundColor: unit.colorTokens.soft,
+                      color: unit.colorTokens.text,
+                      borderColor: unit.colorTokens.border,
+                    }}
+                  >
                     {lab.difficulty}
                   </span>
                   <span className="text-xs text-[#64748B] dark:text-[#94A3B8] flex items-center gap-1 font-mono">
@@ -353,7 +405,7 @@ export const UnitWorkspaceTabs: React.FC<UnitWorkspaceTabsProps> = ({
                   {lab.description}
                 </p>
                 <Link href={`/labs/${lab.slug}`} className="block pt-2">
-                  <button className="w-full py-2.5 px-4 rounded-xl bg-[#172033] dark:bg-[#1E293B] text-white font-bold text-xs flex items-center justify-center gap-2 hover:bg-blue-600 transition-colors cursor-pointer">
+                  <button className="w-full py-2.5 px-4 rounded-xl bg-[#172033] dark:bg-[#1E293B] hover:bg-black text-white font-bold text-xs flex items-center justify-center gap-2 transition-colors cursor-pointer">
                     <span>Open Interactive Lab</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>

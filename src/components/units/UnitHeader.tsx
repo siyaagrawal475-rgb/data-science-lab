@@ -139,7 +139,7 @@ export const UnitHeader: React.FC<UnitHeaderProps> = ({
                 className="h-full rounded-full transition-all duration-500 ease-out"
                 style={{
                   width: `${percentage}%`,
-                  backgroundColor: 'var(--unit-1-primary, #F4A58A)',
+                  backgroundColor: `var(--unit-${unitNumber}-primary, #F4A58A)`,
                 }}
               />
             </div>

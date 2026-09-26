@@ -34,6 +34,15 @@ export const CourseCard: React.FC<CourseCardProps> = ({ unit, className }) => {
     'unit-6': 'bg-[#D99AAF]',
   };
 
+  const unitHoverColors: Record<UnitId, string> = {
+    'unit-1': 'group-hover:text-[#9E513B] dark:group-hover:text-[#FFC4B3]',
+    'unit-2': 'group-hover:text-[#416B9E] dark:group-hover:text-[#C6DEFA]',
+    'unit-3': 'group-hover:text-[#3F7951] dark:group-hover:text-[#BCE8CC]',
+    'unit-4': 'group-hover:text-[#68539A] dark:group-hover:text-[#DFD3F8]',
+    'unit-5': 'group-hover:text-[#806A28] dark:group-hover:text-[#FBE6A6]',
+    'unit-6': 'group-hover:text-[#8A4E63] dark:group-hover:text-[#FACCDA]',
+  };
+  const hoverColor = unitHoverColors[unit.id] || unitHoverColors['unit-1'];
   const borderHighlight = cardBorderHighlights[unit.id] || cardBorderHighlights['unit-1'];
   const colorBar = topColorBar[unit.id] || topColorBar['unit-1'];
 
@@ -60,7 +69,7 @@ export const CourseCard: React.FC<CourseCardProps> = ({ unit, className }) => {
           </div>
 
           {/* Title */}
-          <h3 className="text-lg sm:text-xl font-bold text-[#172033] dark:text-[#F1F5F9] group-hover:text-blue-600 dark:group-hover:text-blue-400 tracking-tight mb-2 transition-colors">
+          <h3 className={cn('text-lg sm:text-xl font-bold text-[#172033] dark:text-[#F1F5F9] tracking-tight mb-2 transition-colors', hoverColor)}>
             <Link href={`/units/${unit.id}`} className="hover:underline focus:outline-hidden">
               {unit.title}
             </Link>
