@@ -9,6 +9,7 @@ import {
   BookOpen,
   FlaskConical,
   BarChart3,
+  TrendingUp,
   LogIn,
   Menu,
   X,
@@ -50,7 +51,7 @@ export const Navbar: React.FC = () => {
     { href: '/labs/eda', label: 'Labs', icon: <FlaskConical className="w-4 h-4" /> },
     { href: '/revision', label: 'Revision', icon: <FileText className="w-4 h-4" /> },
     { href: '/tutor', label: 'AI Tutor', icon: <Bot className="w-4 h-4" /> },
-    { href: '/progress', label: 'Progress', icon: <BarChart3 className="w-4 h-4" /> },
+    { href: '/progress', label: 'Progress', icon: <TrendingUp className="w-4 h-4" /> },
   ];
 
   return (
@@ -75,7 +76,7 @@ export const Navbar: React.FC = () => {
               </Link>
 
               {/* Desktop Nav Links */}
-              <nav className="hidden xl:flex items-center gap-1">
+              <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1">
                 {navLinks.map((link) => {
                   const isActive = pathname === link.href;
                   return (
@@ -83,14 +84,14 @@ export const Navbar: React.FC = () => {
                       key={link.href}
                       href={link.href}
                       className={cn(
-                        'flex items-center gap-2 px-3 py-1.5 rounded-md text-xs font-medium transition-colors',
+                        'flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium whitespace-nowrap shrink-0 transition-colors',
                         isActive
-                          ? 'text-[#172033] dark:text-[#F1F5F9] bg-[#F1F5F9] dark:bg-[#202D3B] font-semibold'
+                          ? 'text-[#172033] dark:text-[#F1F5F9] bg-[#F1F5F9] dark:bg-[#202D3B] font-semibold shadow-2xs'
                           : 'text-[#64748B] dark:text-[#B8C4D1] hover:text-[#172033] dark:hover:text-[#F1F5F9] hover:bg-[#F8FAFC] dark:hover:bg-[#1B2735]'
                       )}
                     >
                       {link.icon}
-                      <span>{link.label}</span>
+                      <span className="whitespace-nowrap">{link.label}</span>
                     </Link>
                   );
                 })}
@@ -98,17 +99,17 @@ export const Navbar: React.FC = () => {
             </div>
 
             {/* Right: Search, Actions, Profile & Theme Toggle */}
-            <div className="hidden md:flex items-center gap-2.5">
-              <VisitorCounter className="hidden xl:inline-flex" />
+            <div className="hidden md:flex items-center gap-2 shrink-0">
+              <VisitorCounter className="hidden 2xl:inline-flex" />
 
               <button
                 onClick={() => setIsSearchOpen(true)}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-[#E2E8F0] dark:border-[#2E3B4A] bg-[#F8FAFC] dark:bg-[#101923] text-xs text-[#64748B] dark:text-[#CBD5E1] hover:border-[#CBD5E1] dark:hover:border-[#3D4F63] hover:text-[#172033] dark:hover:text-white transition-all cursor-pointer shadow-2xs"
+                className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg border border-[#E2E8F0] dark:border-[#2E3B4A] bg-[#F8FAFC] dark:bg-[#101923] text-xs text-[#64748B] dark:text-[#CBD5E1] hover:border-[#CBD5E1] dark:hover:border-[#3D4F63] hover:text-[#172033] dark:hover:text-white transition-all cursor-pointer shadow-2xs shrink-0"
                 title="Search topics, lessons, labs (Ctrl+K)"
               >
                 <Search className="w-3.5 h-3.5 text-[#94A3B8] dark:text-[#91B9E8]" />
-                <span>Search...</span>
-                <kbd className="hidden lg:inline-flex text-[10px] font-mono px-1.5 py-0.5 rounded bg-white dark:bg-[#202D3B] border border-[#E2E8F0] dark:border-[#2E3B4A] text-[#94A3B8] dark:text-[#CBD5E1]">
+                <span className="hidden xl:inline">Search...</span>
+                <kbd className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-white dark:bg-[#202D3B] border border-[#E2E8F0] dark:border-[#2E3B4A] text-[#94A3B8] dark:text-[#CBD5E1]">
                   ⌘K
                 </kbd>
               </button>
@@ -118,7 +119,7 @@ export const Navbar: React.FC = () => {
               {user ? (
                 <Link
                   href="/profile"
-                  className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg border border-[#E2E8F0] dark:border-[#2E3B4A] bg-white dark:bg-[#151F2B] hover:bg-[#F8FAFC] dark:hover:bg-[#202D3B] text-xs font-semibold text-[#172033] dark:text-[#F1F5F9] transition-colors cursor-pointer"
+                  className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg border border-[#E2E8F0] dark:border-[#2E3B4A] bg-white dark:bg-[#151F2B] hover:bg-[#F8FAFC] dark:hover:bg-[#202D3B] text-xs font-semibold text-[#172033] dark:text-[#F1F5F9] transition-colors cursor-pointer shrink-0"
                   title="View Student Dossier & Profile"
                 >
                   <div className="w-5 h-5 rounded-md bg-[#172033] dark:bg-[#202D3B] text-[#91B9E8] flex items-center justify-center text-[10px]">
@@ -127,7 +128,7 @@ export const Navbar: React.FC = () => {
                   <span className="max-w-[100px] truncate">{user.name.split(' ')[0]}</span>
                 </Link>
               ) : (
-                <Link href="/login">
+                <Link href="/login" className="shrink-0">
                   <Button
                     variant="outline"
                     size="sm"
@@ -137,12 +138,6 @@ export const Navbar: React.FC = () => {
                   </Button>
                 </Link>
               )}
-
-              <Link href="/dashboard">
-                <Button variant="primary" size="sm">
-                  Dashboard
-                </Button>
-              </Link>
             </div>
 
             {/* Mobile Actions Button */}
